@@ -317,16 +317,38 @@
       transition: width 0.25s ease, opacity 0.2s ease; overflow: hidden;
     }
     .outline-review.collapsed { width: 0; border-right: none; opacity: 0; pointer-events: none; }
+
+    /* Full-width outline mode (State C initial view) */
+    .state-c.outline-fullwidth { justify-content: center; }
+    .state-c.outline-fullwidth > .editor-col,
+    .state-c.outline-fullwidth > .elements-panel { display: none; }
+    .outline-review.fullwidth {
+      width: 100%; max-width: 700px; margin: 0 auto;
+      border-right: none; flex-shrink: 1;
+    }
     .review-header {
       padding: 12px 16px; border-bottom: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px;
+      position: relative;
     }
     .review-header h3 { font-size: 14px; font-weight: 600; white-space: nowrap; }
     .review-header-actions { display: flex; align-items: center; gap: 6px; }
+    .review-header-prompt { width: 100%; color: var(--text); } 
     .regen-btn {
-      background: none; border: 1px solid var(--line); border-radius: var(--radius-sm);
-      padding: 4px 10px; font-size: 11px; font-family: inherit; cursor: pointer;
-      color: var(--muted); display: flex; align-items: center; gap: 4px;
+      background: none; border: 1px solid var(--brand-dark); 
+      padding: 4px 10px; 
+      font-size: 16px; font-family: inherit; cursor: pointer;
+      color: var(--brand-dark);
+      display: flex; align-items: center; gap: 4px;
+      position: absolute;
+      right: 2em;      
+      bottom: calc(50% - 1em);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      justify-content: center;
+      width: 2em;
+      height: 2em;
     }
     .regen-btn:hover { border-color: var(--brand); color: var(--brand-dark); }
     .sidebar-close {
@@ -374,9 +396,18 @@
       padding: 10px 20px; font-size: 13px; border-radius: var(--radius);
       font-family: inherit; font-weight: 600; cursor: pointer;
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      width: 100%; transition: background 0.15s;
+      max-width: 20em;
+      transition: background 0.15s;
     }
     .accept-btn:hover { background: var(--brand-dark); }
+    .review-footer-buttons { display: flex; gap: 8px; justify-content: space-between;}
+    .review-footer-buttons .accept-btn { flex: 1; }
+    .outline-close-btn {
+      background: #fff; color: var(--text); border: 1.5px solid var(--line);
+      padding: 10px 20px; font-size: 13px; border-radius: var(--radius);
+      font-family: inherit; font-weight: 500; cursor: pointer; transition: all 0.15s;
+    }
+    .outline-close-btn:hover { border-color: var(--brand); color: var(--brand-dark); }
 
     /* Shared editor column */
     .editor-col { flex: 1; display: flex; flex-direction: column; min-width: 0; }
@@ -390,6 +421,13 @@
     .editor-empty .drop-instruction {
       font-size: 14px; color: var(--muted); line-height: 1.5; font-style: italic;
     }
+    .generate-lesson-btn {
+      margin-top: 16px; background: var(--brand); color: #fff; border: none;
+      padding: 10px 24px; font-size: 13px; border-radius: var(--radius);
+      font-family: inherit; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; transition: background 0.15s;
+    }
+    .generate-lesson-btn:hover { background: var(--brand-dark); }
 
     /* Elements panel */
     .elements-panel {
@@ -575,9 +613,7 @@
                 <!-- Pin bar at top -->
                 <div class="ldd-top-bar">
                   <span style="font-size:12px; font-weight:600; color:var(--muted);">Lessons</span>
-                  <button class="ldd-pin-btn" id="lddPinBtn" onclick="toggleSidebarFromDropdown(event)">
-                    📌 Pin as sidebar
-                  </button>
+                  
                 </div>
                 <div class="ldd-add-row">
                   <span>Add Lesson</span>
@@ -777,14 +813,17 @@
           </div>
 
           <!-- ════ STATE C: Review + live editor ════ -->
-          <div class="state state-c" id="stateC">
-            <div class="outline-review" id="outlineReview">
+          <div class="state state-c outline-fullwidth" id="stateC">
+            <div class="outline-review fullwidth" id="outlineReview">
               <div class="review-header">
-                <h3>Review Outline</h3>
-                <div class="review-header-actions">
-                  <button class="regen-btn" onclick="switchState('b')">↻ Regenerate</button>
-                  <button class="sidebar-close" onclick="closeSidebar('c')" title="Close outline panel">✕</button>
-                </div>
+                <h3>Any Changes to Outline?</h3>
+                  <div style="width:100%;">
+                    <textarea 
+                      class="review-header-prompt" rows="3" style="height: 66px;" aria-invalid="false" id=":r1l:"                       
+                      maxlength="1000">E.g., 'Add a module about advanced techniques' or 'Remove the introduction module'
+                    </textarea>                  
+                    <div><button class="regen-btn" onclick="switchState('b')">↻</button></div>
+                  </div>
               </div>
               <div class="review-body">
                 <div class="outline-item selected-item">
@@ -838,7 +877,10 @@
               </div>
               <div class="review-footer">
                 <div class="review-footer-hint">Drag to reorder · 6 lessons, 2 quizzes · ~30 min</div>
-                <button class="accept-btn" onclick="switchState('d')">✨ Generate content with MOBI</button>
+                <div class="review-footer-buttons">
+                  <button class="outline-close-btn" onclick="closeOutlineFullwidth()">Close</button>
+                  <button class="accept-btn" onclick="switchState('d')">✨ Generate content with MOBI</button>
+                </div>
               </div>
             </div>
 
@@ -864,39 +906,13 @@
 
           <!-- ════ STATE D: Full editor ════ -->
           <div class="state state-d" id="stateD">
-            <div class="lessons-sidebar" id="lessonsSidebar">
-              <div class="ls-header">
-                <h4>Lessons</h4>
-                <div class="ls-header-actions">
-                  <div class="add-lesson-wrap">
-                    <button class="ls-add" onclick="toggleAddMenu(event)">+ Add <span style="font-size:10px;color:var(--muted);margin-left:2px;">▾</span></button>
-                    <div class="add-menu" id="addMenu">
-                      <div class="add-menu-item"><span class="am-icon">📄</span> Add Lesson</div>
-                      <div class="add-menu-item"><span class="am-icon">❓</span> Add Quiz</div>
-                      <div class="add-menu-item"><span class="am-icon">✨</span> Generate Quiz</div>
-                      <div class="add-menu-item"><span class="am-icon">✅</span> Add Skill Check</div>
-                    </div>
-                  </div>
-                  <button class="sidebar-close" onclick="closeSidebar('d')" title="Close lesson panel">✕</button>
-                </div>
-              </div>
-              <div class="ls-list">
-                <div class="ls-item active"><span class="ls-grip">⠿</span><div class="ls-info"><div class="ls-name">1. Introduction &amp; Why Forklifts Hurt People</div><div class="ls-type">Lesson</div></div><div class="ls-dot empty"></div></div>
-                <div class="ls-item"><span class="ls-grip">⠿</span><div class="ls-info"><div class="ls-name">2. Equipment Basics: Controls &amp; Stability</div><div class="ls-type">Lesson</div></div><div class="ls-dot empty"></div></div>
-                <div class="ls-item"><span class="ls-grip">⠿</span><div class="ls-info"><div class="ls-name">Knowledge Check: Basics</div><div class="ls-type">Quiz</div></div><div class="ls-dot empty"></div></div>
-                <div class="ls-item"><span class="ls-grip">⠿</span><div class="ls-info"><div class="ls-name">3. Pre-Op Inspection &amp; Daily Checklist</div><div class="ls-type">Lesson</div></div><div class="ls-dot empty"></div></div>
-                <div class="ls-item"><span class="ls-grip">⠿</span><div class="ls-info"><div class="ls-name">4. Safe Driving: Speed, Turns &amp; Loads</div><div class="ls-type">Lesson</div></div><div class="ls-dot empty"></div></div>
-                <div class="ls-item"><span class="ls-grip">⠿</span><div class="ls-info"><div class="ls-name">Knowledge Check: Operations</div><div class="ls-type">Quiz</div></div><div class="ls-dot empty"></div></div>
-                <div class="ls-item"><span class="ls-grip">⠿</span><div class="ls-info"><div class="ls-name">5. Hazards &amp; Emergency Response</div><div class="ls-type">Lesson</div></div><div class="ls-dot empty"></div></div>
-                <div class="ls-item"><span class="ls-grip">⠿</span><div class="ls-info"><div class="ls-name">6. Wrap-Up &amp; Final Assessment</div><div class="ls-type">Lesson</div></div><div class="ls-dot empty"></div></div>
-              </div>
-            </div>
 
             <div class="editor-col">
               <div class="editor-dropzone">
                 <div class="editor-empty">
                   <h3>1. Introduction &amp; Why Forklifts Hurt People</h3>
                   <p class="drop-instruction">Drag an element or file(s) here to begin creating your lesson</p>
+                  <button class="generate-lesson-btn">✨ Generate Lesson</button>
                 </div>
               </div>
             </div>
@@ -976,6 +992,14 @@
         toolbar.style.opacity = '0.3';
         toolbar.style.pointerEvents = 'none';
         courseTitle.textContent = 'New Course';
+      } else if (id === 'c') {
+        toolbarTitle.textContent = 'Forklift Safety Training';
+        toolbarTitle.style.display = 'inline';
+        dropdownWrap.style.display = 'none';
+        previewBtn.style.display = 'none';
+        toolbar.style.opacity = '1';
+        toolbar.style.pointerEvents = 'auto';
+        courseTitle.textContent = 'Forklift Safety Training';
       } else {
         toolbarTitle.style.display = 'none';
         dropdownWrap.style.display = 'block';
@@ -989,8 +1013,20 @@
       sidebarOpen.c = true;
       sidebarOpen.d = true;
       document.getElementById('outlineReview').classList.remove('collapsed');
+      document.getElementById('outlineReview').style.display = '';
       document.getElementById('lessonsSidebar').classList.remove('collapsed');
       updatePinBtnState();
+
+      // Reset State C to fullwidth outline mode
+      var stateCEl = document.getElementById('stateC');
+      var outlineReview = document.getElementById('outlineReview');
+      if (id === 'c') {
+        stateCEl.classList.add('outline-fullwidth');
+        outlineReview.classList.add('fullwidth');
+      } else {
+        stateCEl.classList.remove('outline-fullwidth');
+        outlineReview.classList.remove('fullwidth');
+      }
 
       // Close menus
       document.getElementById('lessonDropdownMenu').classList.remove('open');
@@ -999,17 +1035,22 @@
 
     function closeSidebar(which) {
       sidebarOpen[which] = false;
-      if (which === 'c') document.getElementById('outlineReview').classList.add('collapsed');
       if (which === 'd') document.getElementById('lessonsSidebar').classList.add('collapsed');
       updatePinBtnState();
     }
 
+    function closeOutlineFullwidth() {
+      var stateC = document.getElementById('stateC');
+      var outlineReview = document.getElementById('outlineReview');
+      stateC.classList.remove('outline-fullwidth');
+      outlineReview.classList.remove('fullwidth');
+      outlineReview.style.display = 'none';
+      sidebarOpen.c = false;
+    }
+
     function toggleSidebarFromDropdown(e) {
       e.stopPropagation();
-      if (currentState === 'c') {
-        sidebarOpen.c = !sidebarOpen.c;
-        document.getElementById('outlineReview').classList.toggle('collapsed', !sidebarOpen.c);
-      } else if (currentState === 'd') {
+      if (currentState === 'd') {
         sidebarOpen.d = !sidebarOpen.d;
         document.getElementById('lessonsSidebar').classList.toggle('collapsed', !sidebarOpen.d);
       }
@@ -1019,7 +1060,7 @@
 
     function updatePinBtnState() {
       const btn = document.getElementById('lddPinBtn');
-      const pinned = currentState === 'c' ? sidebarOpen.c : currentState === 'd' ? sidebarOpen.d : false;
+      const pinned = currentState === 'd' ? sidebarOpen.d : false;
       if (pinned) {
         btn.classList.add('pinned');
         btn.innerHTML = '📌 Unpin sidebar';
