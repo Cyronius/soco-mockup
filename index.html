@@ -211,6 +211,10 @@
     .state { display: none; width: 100%; height: 100%; }
     .state.visible { display: flex; }
 
+    /* ═══════ SCREENSHOT STATES ═══════ */
+    .state-screenshot { justify-content: center; align-items: center; background: #e8e8e8; }
+    .state-screenshot img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
     /* ═══════ STATE A ═══════ */
     .state-a {
       flex-direction: column; align-items: center; justify-content: center;
@@ -666,15 +670,29 @@
 <body>
   <div class="state-switcher">
     <span class="label">View state:</span>
-    <button class="state-btn active" data-state="a" onclick="switchState('a')">① New Course</button>
-    <button class="state-btn" data-state="b" onclick="switchState('b')">② Generate Outline</button>
-    <button class="state-btn" data-state="c" onclick="switchState('c')">③ Review &amp; Edit</button>
-    <button class="state-btn" data-state="d" onclick="switchState('d')">④ Editor (Accepted)</button>
-    <button class="state-btn" data-state="e" onclick="switchState('e')">⑤ Streaming</button>
-    <span class="state-note" id="stateNote">Empty course — user picks how to start</span>
+    <button class="state-btn active" data-state="s1" onclick="switchState('s1')">① Channels - Non-Empty</button>
+    <button class="state-btn" data-state="s2" onclick="switchState('s2')">② Channels - Empty</button>
+    <button class="state-btn" data-state="s3" onclick="switchState('s3')">③ Channels - Background Processing</button>
+    <button class="state-btn" data-state="a" onclick="switchState('a')">④ New Course</button>
+    <button class="state-btn" data-state="b" onclick="switchState('b')">⑤ Generate Outline</button>
+    <button class="state-btn" data-state="c" onclick="switchState('c')">⑥ Review &amp; Edit</button>
+    <button class="state-btn" data-state="d" onclick="switchState('d')">⑦ Editor (Accepted)</button>
+    <button class="state-btn" data-state="e" onclick="switchState('e')">⑧ Streaming</button>
+    <span class="state-note" id="stateNote">Channels page with existing content</span>
   </div>
 
-  <div class="app">
+  <!-- ════ SCREENSHOT STATES ════ -->
+  <div class="state state-screenshot visible" id="stateS1">
+    <img src="screenshots/channels-nonempty.png" alt="Channels - Non-Empty" />
+  </div>
+  <div class="state state-screenshot" id="stateS2">
+    <img src="screenshots/channels-empty.jpg" alt="Channels - Empty" />
+  </div>
+  <div class="state state-screenshot" id="stateS3">
+    <img src="screenshots/channels-bg-processing.jpg" alt="Channels - Background Processing" />
+  </div>
+
+  <div class="app" style="display:none">
     <div class="topbar">
       <div class="top-left">
         <div class="appmark">ℓ</div>
@@ -838,7 +856,7 @@
         <div class="canvas-content">
 
           <!-- ════ STATE A ════ -->
-          <div class="state state-a visible" id="stateA">
+          <div class="state state-a" id="stateA">
             <div class="welcome-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M12 6.5V17.5M7.5 12H16.5" stroke-linecap="round"/>
@@ -1095,6 +1113,9 @@
 
   <script>
     const stateNotes = {
+      s1: 'Channels page with existing content',
+      s2: 'Channels page — empty state for new users',
+      s3: 'Channels page — AI course generation in background',
       a: 'Empty course — two paths: AI generate or manual build',
       b: 'Describe course + attach files + pick style → generate',
       c: 'Editor — canvas + elements panel',
@@ -1102,7 +1123,7 @@
       e: 'Streaming generation — elements appear one by one in canvas',
     };
 
-    let currentState = 'a';
+    let currentState = 's1';
     let sidebarOpen = { d: true };
 
     // ── Streaming state data ──
@@ -1162,6 +1183,11 @@
       document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
       document.querySelector(`[data-state="${id}"]`).classList.add('active');
       document.getElementById('stateNote').textContent = stateNotes[id] || '';
+
+      // Screenshot states: hide app chrome and return early
+      const isScreenshot = id.startsWith('s');
+      document.querySelector('.app').style.display = isScreenshot ? 'none' : '';
+      if (isScreenshot) return;
 
       // Title vs dropdown
       const toolbarTitle = document.getElementById('toolbarTitle');
