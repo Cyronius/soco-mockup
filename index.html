@@ -311,104 +311,6 @@
     /* ═══════ STATE C: Review + live editor ═══════ */
     .state-c { flex-direction: row; }
 
-    .outline-review {
-      width: 300px; display: flex; flex-direction: column;
-      background: #fff; border-right: 1px solid var(--line); flex-shrink: 0;
-      transition: width 0.25s ease, opacity 0.2s ease; overflow: hidden;
-    }
-    .outline-review.collapsed { width: 0; border-right: none; opacity: 0; pointer-events: none; }
-
-    /* Full-width outline mode (State C initial view) */
-    .state-c.outline-fullwidth { justify-content: center; }
-    .state-c.outline-fullwidth > .editor-col,
-    .state-c.outline-fullwidth > .elements-panel { display: none; }
-    .outline-review.fullwidth {
-      width: 100%; max-width: 700px; margin: 0 auto;
-      border-right: none; flex-shrink: 1;
-    }
-    .review-header {
-      padding: 12px 16px; border-bottom: 1px solid var(--line);
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 12px;
-      position: relative;
-    }
-    .review-header h3 { font-size: 14px; font-weight: 600; white-space: nowrap; }
-    .review-header-actions { display: flex; align-items: center; gap: 6px; }
-    .review-header-prompt { width: 100%; color: var(--text); } 
-    .regen-btn {
-      background: none; border: 1px solid var(--brand-dark); 
-      padding: 4px 10px; 
-      font-size: 16px; font-family: inherit; cursor: pointer;
-      color: var(--brand-dark);
-      display: flex; align-items: center; gap: 4px;
-      position: absolute;
-      right: 2em;      
-      bottom: calc(50% - 1em);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      justify-content: center;
-      width: 2em;
-      height: 2em;
-    }
-    .regen-btn:hover { border-color: var(--brand); color: var(--brand-dark); }
-    .sidebar-close {
-      width: 26px; height: 26px; border: 1px solid var(--line); background: #fff;
-      border-radius: var(--radius-sm); display: grid; place-items: center;
-      cursor: pointer; font-size: 14px; color: var(--muted); transition: all 0.12s;
-    }
-    .sidebar-close:hover { border-color: var(--brand); color: var(--brand-dark); background: var(--brand-bg); }
-
-    .review-body { flex: 1; overflow: auto; padding: 10px; }
-
-    .outline-item {
-      display: flex; align-items: flex-start; gap: 8px;
-      padding: 10px; border: 1.5px solid var(--line); border-radius: var(--radius);
-      margin-bottom: 6px; background: #fff; transition: all 0.15s; cursor: grab;
-    }
-    .outline-item:hover { border-color: var(--brand-light); background: #fafffe; }
-    .outline-item.selected-item { border-color: var(--brand); background: var(--brand-bg); }
-    .outline-grip { color: var(--muted2); font-size: 14px; cursor: grab; padding-top: 1px; flex-shrink: 0; }
-    .outline-info { flex: 1; min-width: 0; }
-    .outline-num { font-size: 9px; font-weight: 600; color: var(--brand-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1px; }
-    .outline-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; line-height: 1.3; }
-    .outline-desc { font-size: 11px; color: var(--muted); line-height: 1.35; }
-    .outline-type {
-      flex-shrink: 0; font-size: 9px; font-weight: 600; padding: 2px 7px;
-      border-radius: 10px; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px;
-    }
-    .type-lesson { background: var(--brand-bg); color: var(--brand-dark); }
-    .type-quiz { background: #fef3c7; color: #92400e; }
-    .outline-actions { display: flex; gap: 2px; flex-shrink: 0; margin-top: 1px; }
-    .outline-action-btn {
-      width: 22px; height: 22px; border: 1px solid transparent; background: none;
-      border-radius: 4px; cursor: pointer; display: grid; place-items: center;
-      font-size: 11px; color: var(--muted2);
-    }
-    .outline-action-btn:hover { background: var(--bg); color: var(--text); border-color: var(--line); }
-
-    .review-footer {
-      padding: 12px 16px; border-top: 1px solid var(--line);
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .review-footer-hint { font-size: 11px; color: var(--muted2); }
-    .accept-btn {
-      background: var(--brand); color: #fff; border: none;
-      padding: 10px 20px; font-size: 13px; border-radius: var(--radius);
-      font-family: inherit; font-weight: 600; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      max-width: 20em;
-      transition: background 0.15s;
-    }
-    .accept-btn:hover { background: var(--brand-dark); }
-    .review-footer-buttons { display: flex; gap: 8px; justify-content: space-between;}
-    .review-footer-buttons .accept-btn { flex: 1; }
-    .outline-close-btn {
-      background: #fff; color: var(--text); border: 1.5px solid var(--line);
-      padding: 10px 20px; font-size: 13px; border-radius: var(--radius);
-      font-family: inherit; font-weight: 500; cursor: pointer; transition: all 0.15s;
-    }
-    .outline-close-btn:hover { border-color: var(--brand); color: var(--brand-dark); }
-
     /* Shared editor column */
     .editor-col { flex: 1; display: flex; flex-direction: column; min-width: 0; }
     .editor-dropzone {
@@ -559,6 +461,205 @@
       border-radius: 50%; display: grid; place-items: center; cursor: pointer;
       color: #fff; font-size: 14px; flex-shrink: 0;
     }
+
+    /* ═══════ STATE E: Streaming Generation ═══════ */
+    .state-e { flex-direction: row; }
+
+    /* Left panel: lesson progress */
+    .stream-progress-panel {
+      width: 260px; background: #fff; border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden;
+    }
+    .spp-header {
+      padding: 14px 16px; border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .spp-header h4 { font-size: 13px; font-weight: 600; }
+    .spp-counter { font-size: 11px; color: var(--muted); font-weight: 500; }
+
+    .spp-list { flex: 1; overflow: auto; padding: 8px; }
+    .spp-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 10px; border-radius: 6px; margin-bottom: 2px;
+      transition: background 0.2s;
+    }
+    .spp-item.in-progress { background: var(--brand-bg); }
+    .spp-item.completed { opacity: 0.7; }
+
+    .spp-status { width: 20px; height: 20px; display: grid; place-items: center; flex-shrink: 0; }
+    .spp-circle {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 1.5px solid var(--line2); background: transparent;
+    }
+    .spp-check {
+      width: 18px; height: 18px; border-radius: 50%; background: var(--brand);
+      display: grid; place-items: center; color: #fff; font-size: 10px; font-weight: 700;
+    }
+    .spp-spinner {
+      width: 16px; height: 16px; border: 2px solid var(--brand-light);
+      border-top-color: var(--brand); border-radius: 50%;
+      animation: spp-spin 0.8s linear infinite;
+    }
+    @keyframes spp-spin { to { transform: rotate(360deg); } }
+
+    .spp-info { flex: 1; min-width: 0; }
+    .spp-name {
+      font-size: 12px; font-weight: 500;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .spp-item.in-progress .spp-name { color: var(--brand-dark); font-weight: 600; }
+    .spp-type { font-size: 10px; color: var(--muted2); }
+
+    /* Center: streaming canvas */
+    .stream-canvas {
+      flex: 1; display: flex; flex-direction: column; min-width: 0;
+      background: var(--bg);
+    }
+
+    .stream-topbar {
+      padding: 12px 24px; background: #fff; border-bottom: 1px solid var(--line); flex-shrink: 0;
+    }
+    .stream-progress-bar {
+      width: 100%; height: 6px; background: var(--line);
+      border-radius: 3px; overflow: hidden; margin-bottom: 8px;
+    }
+    .stream-progress-fill {
+      height: 100%; background: var(--brand); border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+    .stream-status-row {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .stream-status-text { font-size: 13px; font-weight: 600; color: var(--text); }
+    .stream-element-count { font-size: 12px; color: var(--muted); }
+
+    .stream-lesson-header {
+      padding: 20px 32px 8px; flex-shrink: 0;
+    }
+    .stream-lesson-header h3 { font-size: 18px; font-weight: 600; color: var(--text); }
+
+    .stream-elements {
+      flex: 1; overflow-y: auto; padding: 8px 32px 24px;
+      scroll-behavior: smooth;
+    }
+
+    /* Individual streamed element blocks */
+    .stream-el {
+      margin-bottom: 16px; opacity: 0; transform: translateY(16px);
+      animation: stream-fade-in 0.4s ease forwards;
+    }
+    @keyframes stream-fade-in {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Shimmer effect for the currently-generating element */
+    .stream-el.generating {
+      position: relative; overflow: hidden;
+    }
+    .stream-el.generating::after {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(77,182,172,0.08), transparent);
+      animation: stream-shimmer 1.5s ease-in-out infinite;
+    }
+    @keyframes stream-shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* Element type styles */
+    .stream-el-heading {
+      background: #fff; border-radius: var(--radius); padding: 16px 20px;
+      border-left: 4px solid var(--brand); box-shadow: var(--shadow-sm);
+    }
+    .stream-el-heading h2 { font-size: 20px; font-weight: 700; color: var(--text); }
+
+    .stream-el-paragraph {
+      background: #fff; border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow-sm);
+    }
+    .stream-el-paragraph p { font-size: 14px; line-height: 1.6; color: var(--text); }
+
+    .stream-el-image {
+      background: #fff; border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow-sm);
+    }
+    .stream-el-image .image-placeholder {
+      width: 100%; height: 180px; background: var(--bg); border: 1.5px dashed var(--line2);
+      border-radius: var(--radius-sm); display: grid; place-items: center;
+      color: var(--muted2); font-size: 13px;
+    }
+
+    .stream-el-bullets {
+      background: #fff; border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow-sm);
+    }
+    .stream-el-bullets ul { padding-left: 18px; }
+    .stream-el-bullets li { font-size: 14px; line-height: 1.6; color: var(--text); margin-bottom: 4px; }
+
+    .stream-el-quiz {
+      background: #fff; border-radius: var(--radius); padding: 16px 20px;
+      border-left: 4px solid #f59e0b; box-shadow: var(--shadow-sm);
+    }
+    .stream-el-quiz .quiz-question { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+    .stream-el-quiz .quiz-option {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+      border: 1px solid var(--line); border-radius: var(--radius-sm);
+      margin-bottom: 6px; font-size: 13px;
+    }
+    .stream-el-quiz .quiz-option-letter {
+      width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line2);
+      display: grid; place-items: center; font-size: 11px; font-weight: 600; color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .stream-el-label {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em; margin-bottom: 6px;
+    }
+    .stream-el-heading .stream-el-label { color: var(--brand-dark); }
+    .stream-el-paragraph .stream-el-label,
+    .stream-el-image .stream-el-label,
+    .stream-el-bullets .stream-el-label { color: var(--muted); }
+    .stream-el-quiz .stream-el-label { color: #b45309; }
+
+    .stream-el-divider { padding: 8px 0; }
+    .stream-el-divider hr { border: none; border-top: 1px solid var(--line); margin: 0; }
+
+    /* Bottom controls */
+    .stream-controls {
+      padding: 12px 24px; background: #fff; border-top: 1px solid var(--line);
+      display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+    }
+    .stream-stop-btn {
+      background: #fff; border: 1.5px solid #ef4444; color: #ef4444;
+      padding: 8px 20px; font-size: 13px; border-radius: var(--radius);
+      font-family: inherit; font-weight: 600; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .stream-stop-btn:hover { background: #fef2f2; }
+
+    .stream-complete {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+    }
+    .stream-complete-icon {
+      width: 28px; height: 28px; background: var(--brand); border-radius: 50%;
+      display: grid; place-items: center; color: #fff; font-size: 14px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .stream-complete-text { font-size: 14px; font-weight: 600; color: var(--brand-dark); }
+    .stream-proceed-btn {
+      margin-left: auto; background: var(--brand); color: #fff; border: none;
+      padding: 10px 24px; font-size: 13px; border-radius: var(--radius);
+      font-family: inherit; font-weight: 600; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .stream-proceed-btn:hover { background: var(--brand-dark); }
+
+    /* Generate content trigger button (State C) */
+    .generate-content-btn {
+      margin-top: 16px; background: var(--brand); color: #fff; border: none;
+      padding: 12px 28px; font-size: 14px; border-radius: var(--radius);
+      font-family: inherit; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px; transition: background 0.15s;
+    }
+    .generate-content-btn:hover { background: var(--brand-dark); }
   </style>
 </head>
 
@@ -569,6 +670,7 @@
     <button class="state-btn" data-state="b" onclick="switchState('b')">② Generate Outline</button>
     <button class="state-btn" data-state="c" onclick="switchState('c')">③ Review &amp; Edit</button>
     <button class="state-btn" data-state="d" onclick="switchState('d')">④ Editor (Accepted)</button>
+    <button class="state-btn" data-state="e" onclick="switchState('e')">⑤ Streaming</button>
     <span class="state-note" id="stateNote">Empty course — user picks how to start</span>
   </div>
 
@@ -813,82 +915,13 @@
           </div>
 
           <!-- ════ STATE C: Review + live editor ════ -->
-          <div class="state state-c outline-fullwidth" id="stateC">
-            <div class="outline-review fullwidth" id="outlineReview">
-              <div class="review-header">
-                <h3>Any Changes to Outline?</h3>
-                  <div style="width:100%;">
-                    <textarea 
-                      class="review-header-prompt" rows="3" style="height: 66px;" aria-invalid="false" id=":r1l:"                       
-                      maxlength="1000">E.g., 'Add a module about advanced techniques' or 'Remove the introduction module'
-                    </textarea>                  
-                    <div><button class="regen-btn" onclick="switchState('b')">↻</button></div>
-                  </div>
-              </div>
-              <div class="review-body">
-                <div class="outline-item selected-item">
-                  <span class="outline-grip">⠿</span>
-                  <div class="outline-info"><div class="outline-num">Lesson 1</div><div class="outline-name">Introduction &amp; Why Forklifts Hurt People</div><div class="outline-desc">Accident statistics, real-world examples, consequences</div></div>
-                  <span class="outline-type type-lesson">Lesson</span>
-                  <div class="outline-actions"><button class="outline-action-btn" title="Edit">✎</button><button class="outline-action-btn" title="Delete">🗑</button></div>
-                </div>
-                <div class="outline-item">
-                  <span class="outline-grip">⠿</span>
-                  <div class="outline-info"><div class="outline-num">Lesson 2</div><div class="outline-name">Equipment Basics: Controls &amp; Stability</div><div class="outline-desc">Components, center of gravity, stability triangle</div></div>
-                  <span class="outline-type type-lesson">Lesson</span>
-                  <div class="outline-actions"><button class="outline-action-btn" title="Edit">✎</button><button class="outline-action-btn" title="Delete">🗑</button></div>
-                </div>
-                <div class="outline-item">
-                  <span class="outline-grip">⠿</span>
-                  <div class="outline-info"><div class="outline-num">Quiz 1</div><div class="outline-name">Knowledge Check: Basics</div><div class="outline-desc">5 questions covering Lessons 1–2</div></div>
-                  <span class="outline-type type-quiz">Quiz</span>
-                  <div class="outline-actions"><button class="outline-action-btn" title="Edit">✎</button><button class="outline-action-btn" title="Delete">🗑</button></div>
-                </div>
-                <div class="outline-item">
-                  <span class="outline-grip">⠿</span>
-                  <div class="outline-info"><div class="outline-num">Lesson 3</div><div class="outline-name">Pre-Operation Inspection &amp; Checklist</div><div class="outline-desc">Visual inspection, fluid checks, documentation</div></div>
-                  <span class="outline-type type-lesson">Lesson</span>
-                  <div class="outline-actions"><button class="outline-action-btn" title="Edit">✎</button><button class="outline-action-btn" title="Delete">🗑</button></div>
-                </div>
-                <div class="outline-item">
-                  <span class="outline-grip">⠿</span>
-                  <div class="outline-info"><div class="outline-num">Lesson 4</div><div class="outline-name">Safe Driving: Speed, Turns &amp; Loads</div><div class="outline-desc">Speed limits, turning, ramp ops, stacking</div></div>
-                  <span class="outline-type type-lesson">Lesson</span>
-                  <div class="outline-actions"><button class="outline-action-btn" title="Edit">✎</button><button class="outline-action-btn" title="Delete">🗑</button></div>
-                </div>
-                <div class="outline-item">
-                  <span class="outline-grip">⠿</span>
-                  <div class="outline-info"><div class="outline-num">Quiz 2</div><div class="outline-name">Knowledge Check: Operations</div><div class="outline-desc">5 questions covering Lessons 3–4</div></div>
-                  <span class="outline-type type-quiz">Quiz</span>
-                  <div class="outline-actions"><button class="outline-action-btn" title="Edit">✎</button><button class="outline-action-btn" title="Delete">🗑</button></div>
-                </div>
-                <div class="outline-item">
-                  <span class="outline-grip">⠿</span>
-                  <div class="outline-info"><div class="outline-num">Lesson 5</div><div class="outline-name">Hazards &amp; Emergency Response</div><div class="outline-desc">Hazard scenarios, tip-over, pedestrians, emergency</div></div>
-                  <span class="outline-type type-lesson">Lesson</span>
-                  <div class="outline-actions"><button class="outline-action-btn" title="Edit">✎</button><button class="outline-action-btn" title="Delete">🗑</button></div>
-                </div>
-                <div class="outline-item">
-                  <span class="outline-grip">⠿</span>
-                  <div class="outline-info"><div class="outline-num">Lesson 6</div><div class="outline-name">Wrap-Up &amp; Final Assessment</div><div class="outline-desc">Key takeaways, final quiz, certification</div></div>
-                  <span class="outline-type type-lesson">Lesson</span>
-                  <div class="outline-actions"><button class="outline-action-btn" title="Edit">✎</button><button class="outline-action-btn" title="Delete">🗑</button></div>
-                </div>
-              </div>
-              <div class="review-footer">
-                <div class="review-footer-hint">Drag to reorder · 6 lessons, 2 quizzes · ~30 min</div>
-                <div class="review-footer-buttons">
-                  <button class="outline-close-btn" onclick="closeOutlineFullwidth()">Close</button>
-                  <button class="accept-btn" onclick="switchState('d')">✨ Generate content with MOBI</button>
-                </div>
-              </div>
-            </div>
-
+          <div class="state state-c" id="stateC">
             <div class="editor-col">
               <div class="editor-dropzone">
                 <div class="editor-empty">
                   <h3>1. Introduction &amp; Why Forklifts Hurt People</h3>
                   <p class="drop-instruction">Drag an element or file(s) here to begin creating your lesson</p>
+                  <button class="generate-content-btn" onclick="switchState('e')">✨ Generate content with MOBI</button>
                 </div>
               </div>
             </div>
@@ -928,6 +961,107 @@
             </div>
           </div>
 
+          <!-- ════ STATE E: Streaming Generation ════ -->
+          <div class="state state-e" id="stateE">
+
+            <!-- Left: Lesson progress panel -->
+            <div class="stream-progress-panel">
+              <div class="spp-header">
+                <h4>Course Progress</h4>
+                <span class="spp-counter" id="sppCounter">0 of 8 complete</span>
+              </div>
+              <div class="spp-list" id="sppList">
+                <div class="spp-item in-progress" data-spp-index="0">
+                  <span class="spp-status"><span class="spp-spinner"></span></span>
+                  <div class="spp-info">
+                    <div class="spp-name">1. Introduction &amp; Why Forklifts Hurt People</div>
+                    <div class="spp-type">Lesson</div>
+                  </div>
+                </div>
+                <div class="spp-item pending" data-spp-index="1">
+                  <span class="spp-status"><span class="spp-circle"></span></span>
+                  <div class="spp-info">
+                    <div class="spp-name">2. Equipment Basics: Controls &amp; Stability</div>
+                    <div class="spp-type">Lesson</div>
+                  </div>
+                </div>
+                <div class="spp-item pending" data-spp-index="2">
+                  <span class="spp-status"><span class="spp-circle"></span></span>
+                  <div class="spp-info">
+                    <div class="spp-name">Knowledge Check: Basics</div>
+                    <div class="spp-type">Quiz</div>
+                  </div>
+                </div>
+                <div class="spp-item pending" data-spp-index="3">
+                  <span class="spp-status"><span class="spp-circle"></span></span>
+                  <div class="spp-info">
+                    <div class="spp-name">3. Pre-Op Inspection &amp; Daily Checklist</div>
+                    <div class="spp-type">Lesson</div>
+                  </div>
+                </div>
+                <div class="spp-item pending" data-spp-index="4">
+                  <span class="spp-status"><span class="spp-circle"></span></span>
+                  <div class="spp-info">
+                    <div class="spp-name">4. Safe Driving: Speed, Turns &amp; Loads</div>
+                    <div class="spp-type">Lesson</div>
+                  </div>
+                </div>
+                <div class="spp-item pending" data-spp-index="5">
+                  <span class="spp-status"><span class="spp-circle"></span></span>
+                  <div class="spp-info">
+                    <div class="spp-name">Knowledge Check: Operations</div>
+                    <div class="spp-type">Quiz</div>
+                  </div>
+                </div>
+                <div class="spp-item pending" data-spp-index="6">
+                  <span class="spp-status"><span class="spp-circle"></span></span>
+                  <div class="spp-info">
+                    <div class="spp-name">5. Hazards &amp; Emergency Response</div>
+                    <div class="spp-type">Lesson</div>
+                  </div>
+                </div>
+                <div class="spp-item pending" data-spp-index="7">
+                  <span class="spp-status"><span class="spp-circle"></span></span>
+                  <div class="spp-info">
+                    <div class="spp-name">6. Wrap-Up &amp; Final Assessment</div>
+                    <div class="spp-type">Lesson</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Center: Streaming canvas -->
+            <div class="stream-canvas">
+              <div class="stream-topbar">
+                <div class="stream-progress-bar">
+                  <div class="stream-progress-fill" id="streamProgressFill" style="width: 0%"></div>
+                </div>
+                <div class="stream-status-row">
+                  <span class="stream-status-text" id="streamStatusText">Building lesson 1 of 8...</span>
+                  <span class="stream-element-count" id="streamElementCount">0 elements</span>
+                </div>
+              </div>
+
+              <div class="stream-lesson-header" id="streamLessonHeader">
+                <h3 id="streamLessonTitle">1. Introduction &amp; Why Forklifts Hurt People</h3>
+              </div>
+
+              <div class="stream-elements" id="streamElements">
+                <!-- Elements are injected here by JS -->
+              </div>
+
+              <div class="stream-controls">
+                <button class="stream-stop-btn" id="streamStopBtn" onclick="stopStreaming()">■ Stop Generation</button>
+                <div class="stream-complete" id="streamComplete" style="display: none;">
+                  <span class="stream-complete-icon">✓</span>
+                  <span class="stream-complete-text">Generation Complete</span>
+                  <button class="stream-proceed-btn" onclick="switchState('d')">Open in Editor →</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </div>
 
@@ -963,14 +1097,65 @@
     const stateNotes = {
       a: 'Empty course — two paths: AI generate or manual build',
       b: 'Describe course + attach files + pick style → generate',
-      c: 'Review outline (closable) — canvas + elements live and usable',
+      c: 'Editor — canvas + elements panel',
       d: 'Accepted — pin sidebar via 📌 inside lesson dropdown',
+      e: 'Streaming generation — elements appear one by one in canvas',
     };
 
     let currentState = 'a';
-    let sidebarOpen = { c: true, d: true };
+    let sidebarOpen = { d: true };
 
+    // ── Streaming state data ──
+    const STREAM_LESSONS = [
+      { name: '1. Introduction & Why Forklifts Hurt People', type: 'Lesson' },
+      { name: '2. Equipment Basics: Controls & Stability', type: 'Lesson' },
+      { name: 'Knowledge Check: Basics', type: 'Quiz' },
+      { name: '3. Pre-Op Inspection & Daily Checklist', type: 'Lesson' },
+      { name: '4. Safe Driving: Speed, Turns & Loads', type: 'Lesson' },
+      { name: 'Knowledge Check: Operations', type: 'Quiz' },
+      { name: '5. Hazards & Emergency Response', type: 'Lesson' },
+      { name: '6. Wrap-Up & Final Assessment', type: 'Lesson' },
+    ];
+
+    const SAMPLE_ELEMENTS = [
+      {
+        type: 'heading',
+        html: '<div class="stream-el-label">HEADING</div><h2>Why Forklift Safety Matters</h2>'
+      },
+      {
+        type: 'paragraph',
+        html: '<div class="stream-el-label">TEXT BLOCK</div><p>Every year, roughly 85 workers are killed and 34,900 are seriously injured in forklift-related incidents in the United States alone. These aren\'t just numbers — they represent real people whose lives were changed in an instant. Understanding the risks is the first step toward preventing them.</p>'
+      },
+      {
+        type: 'image',
+        html: '<div class="stream-el-label">IMAGE</div><div class="image-placeholder">📷 Warehouse safety infographic — AI-generated</div>'
+      },
+      {
+        type: 'bullets',
+        html: '<div class="stream-el-label">KEY POINTS</div><ul><li><strong>Tip-overs</strong> account for 24% of all forklift fatalities</li><li><strong>Pedestrian strikes</strong> occur most often at blind intersections</li><li><strong>Loading dock falls</strong> are preventable with proper dock locks</li><li><strong>Improper maintenance</strong> contributes to 30% of incidents</li></ul>'
+      },
+      {
+        type: 'paragraph',
+        html: '<div class="stream-el-label">TEXT BLOCK</div><p>OSHA Standard 1910.178 requires that only trained and certified operators may use powered industrial trucks. This course will walk you through everything you need to know — from pre-operation inspection to emergency response procedures.</p>'
+      },
+      {
+        type: 'quiz',
+        html: '<div class="stream-el-label">KNOWLEDGE CHECK</div><div class="quiz-question">What percentage of forklift fatalities are caused by tip-overs?</div><div class="quiz-option"><span class="quiz-option-letter">A</span> 10%</div><div class="quiz-option"><span class="quiz-option-letter">B</span> 24%</div><div class="quiz-option"><span class="quiz-option-letter">C</span> 42%</div><div class="quiz-option"><span class="quiz-option-letter">D</span> 55%</div>'
+      },
+    ];
+
+    let streamTimer = null;
+    let streamElementIndex = 0;
+    let streamLessonIndex = 0;
+
+    // ── State switcher ──
     function switchState(id) {
+      // Clean up streaming timer if running
+      if (streamTimer) {
+        clearInterval(streamTimer);
+        streamTimer = null;
+      }
+
       currentState = id;
       document.querySelectorAll('.state').forEach(s => s.classList.remove('visible'));
       document.getElementById('state' + id.toUpperCase()).classList.add('visible');
@@ -983,7 +1168,17 @@
       const dropdownWrap = document.getElementById('lessonDropdownWrap');
       const previewBtn = document.getElementById('previewBtn');
       const toolbar = document.getElementById('toolbar');
+      const toolbarRight = document.getElementById('toolbarRight');
       const courseTitle = document.getElementById('courseTitle');
+      const mobiBtn = document.querySelector('.top-btn[onclick="toggleMobi()"]');
+
+      // Reset MOBI button and toolbar-right for all states
+      toolbarRight.style.opacity = '1';
+      toolbarRight.style.pointerEvents = 'auto';
+      if (mobiBtn) {
+        mobiBtn.style.opacity = '1';
+        mobiBtn.style.pointerEvents = 'auto';
+      }
 
       if (id === 'a' || id === 'b') {
         toolbarTitle.style.display = 'inline';
@@ -1000,7 +1195,26 @@
         toolbar.style.opacity = '1';
         toolbar.style.pointerEvents = 'auto';
         courseTitle.textContent = 'Forklift Safety Training';
-      } else {
+      } else if (id === 'e') {
+        toolbarTitle.textContent = 'Forklift Safety Training';
+        toolbarTitle.style.display = 'inline';
+        dropdownWrap.style.display = 'none';
+        previewBtn.style.display = 'none';
+        toolbar.style.opacity = '1';
+        toolbar.style.pointerEvents = 'auto';
+        courseTitle.textContent = 'Forklift Safety Training';
+        // Disable undo/redo and MOBI during streaming
+        toolbarRight.style.opacity = '0.3';
+        toolbarRight.style.pointerEvents = 'none';
+        if (mobiBtn) {
+          mobiBtn.style.opacity = '0.4';
+          mobiBtn.style.pointerEvents = 'none';
+        }
+        // Close MOBI sidebar if open
+        if (mobiOpen) { toggleMobi(); }
+        // Start the streaming demo
+        startStreamingDemo();
+      } else if (id === 'd') {
         toolbarTitle.style.display = 'none';
         dropdownWrap.style.display = 'block';
         previewBtn.style.display = 'inline-block';
@@ -1009,50 +1223,33 @@
         courseTitle.textContent = 'Forklift Safety Training';
       }
 
-      // Reset sidebars
-      sidebarOpen.c = true;
+      // Reset sidebars (guard for missing elements)
       sidebarOpen.d = true;
-      document.getElementById('outlineReview').classList.remove('collapsed');
-      document.getElementById('outlineReview').style.display = '';
-      document.getElementById('lessonsSidebar').classList.remove('collapsed');
+      var lessonsSidebar = document.getElementById('lessonsSidebar');
+      if (lessonsSidebar) lessonsSidebar.classList.remove('collapsed');
       updatePinBtnState();
-
-      // Reset State C to fullwidth outline mode
-      var stateCEl = document.getElementById('stateC');
-      var outlineReview = document.getElementById('outlineReview');
-      if (id === 'c') {
-        stateCEl.classList.add('outline-fullwidth');
-        outlineReview.classList.add('fullwidth');
-      } else {
-        stateCEl.classList.remove('outline-fullwidth');
-        outlineReview.classList.remove('fullwidth');
-      }
 
       // Close menus
       document.getElementById('lessonDropdownMenu').classList.remove('open');
-      document.getElementById('addMenu').classList.remove('open');
+      var addMenu = document.getElementById('addMenu');
+      if (addMenu) addMenu.classList.remove('open');
     }
 
     function closeSidebar(which) {
       sidebarOpen[which] = false;
-      if (which === 'd') document.getElementById('lessonsSidebar').classList.add('collapsed');
+      if (which === 'd') {
+        var el = document.getElementById('lessonsSidebar');
+        if (el) el.classList.add('collapsed');
+      }
       updatePinBtnState();
-    }
-
-    function closeOutlineFullwidth() {
-      var stateC = document.getElementById('stateC');
-      var outlineReview = document.getElementById('outlineReview');
-      stateC.classList.remove('outline-fullwidth');
-      outlineReview.classList.remove('fullwidth');
-      outlineReview.style.display = 'none';
-      sidebarOpen.c = false;
     }
 
     function toggleSidebarFromDropdown(e) {
       e.stopPropagation();
       if (currentState === 'd') {
         sidebarOpen.d = !sidebarOpen.d;
-        document.getElementById('lessonsSidebar').classList.toggle('collapsed', !sidebarOpen.d);
+        var el = document.getElementById('lessonsSidebar');
+        if (el) el.classList.toggle('collapsed', !sidebarOpen.d);
       }
       updatePinBtnState();
       document.getElementById('lessonDropdownMenu').classList.remove('open');
@@ -1060,6 +1257,7 @@
 
     function updatePinBtnState() {
       const btn = document.getElementById('lddPinBtn');
+      if (!btn) return;
       const pinned = currentState === 'd' ? sidebarOpen.d : false;
       if (pinned) {
         btn.classList.add('pinned');
@@ -1076,7 +1274,8 @@
 
     function toggleAddMenu(e) {
       e.stopPropagation();
-      document.getElementById('addMenu').classList.toggle('open');
+      var el = document.getElementById('addMenu');
+      if (el) el.classList.toggle('open');
     }
 
     function selectStyle(el) {
@@ -1090,13 +1289,150 @@
       document.getElementById('mobiSidebar').classList.toggle('open', mobiOpen);
     }
 
+    // ── Streaming generation demo ──
+    function startStreamingDemo() {
+      streamElementIndex = 0;
+      streamLessonIndex = 0;
+      document.getElementById('streamElements').innerHTML = '';
+      document.getElementById('streamProgressFill').style.width = '0%';
+      document.getElementById('streamStatusText').textContent = 'Building lesson 1 of 8...';
+      document.getElementById('streamElementCount').textContent = '0 elements';
+      document.getElementById('streamLessonTitle').textContent = STREAM_LESSONS[0].name;
+      document.getElementById('streamStopBtn').style.display = 'inline-block';
+      document.getElementById('streamComplete').style.display = 'none';
+      document.getElementById('sppCounter').textContent = '0 of 8 complete';
+
+      // Reset all lesson progress items
+      document.querySelectorAll('.spp-item').forEach(function(item, i) {
+        item.className = 'spp-item ' + (i === 0 ? 'in-progress' : 'pending');
+        var statusEl = item.querySelector('.spp-status');
+        statusEl.innerHTML = i === 0
+          ? '<span class="spp-spinner"></span>'
+          : '<span class="spp-circle"></span>';
+      });
+
+      streamTimer = setInterval(streamNextElement, 1500);
+    }
+
+    function streamNextElement() {
+      var container = document.getElementById('streamElements');
+      var totalElements = SAMPLE_ELEMENTS.length;
+
+      if (streamElementIndex >= totalElements) {
+        clearInterval(streamTimer);
+        streamTimer = null;
+        completeStreaming();
+        return;
+      }
+
+      // Remove 'generating' class from previous element
+      var prevEl = container.querySelector('.stream-el.generating');
+      if (prevEl) prevEl.classList.remove('generating');
+
+      // Create new element
+      var data = SAMPLE_ELEMENTS[streamElementIndex];
+      var el = document.createElement('div');
+      el.className = 'stream-el stream-el-' + data.type + ' generating';
+      el.innerHTML = data.html;
+      container.appendChild(el);
+
+      streamElementIndex++;
+
+      // Update element count
+      document.getElementById('streamElementCount').textContent =
+        streamElementIndex + ' element' + (streamElementIndex !== 1 ? 's' : '');
+
+      // Update progress bar
+      var progress = Math.round((streamElementIndex / totalElements) * 100);
+      document.getElementById('streamProgressFill').style.width = progress + '%';
+
+      // Advance lesson at certain element thresholds
+      if (streamElementIndex === 3 && streamLessonIndex === 0) {
+        advanceLesson();
+      } else if (streamElementIndex === 5 && streamLessonIndex === 1) {
+        advanceLesson();
+      }
+
+      // Auto-scroll to keep latest element in view
+      el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+
+    function advanceLesson() {
+      var items = document.querySelectorAll('.spp-item');
+      var currentItem = items[streamLessonIndex];
+      currentItem.className = 'spp-item completed';
+      currentItem.querySelector('.spp-status').innerHTML = '<span class="spp-check">✓</span>';
+
+      streamLessonIndex++;
+
+      if (streamLessonIndex < items.length) {
+        var nextItem = items[streamLessonIndex];
+        nextItem.className = 'spp-item in-progress';
+        nextItem.querySelector('.spp-status').innerHTML = '<span class="spp-spinner"></span>';
+
+        document.getElementById('streamStatusText').textContent =
+          'Building lesson ' + (streamLessonIndex + 1) + ' of 8...';
+        document.getElementById('streamLessonTitle').textContent =
+          STREAM_LESSONS[streamLessonIndex].name;
+
+        // Add a divider in the canvas
+        var divider = document.createElement('div');
+        divider.className = 'stream-el stream-el-divider';
+        divider.innerHTML = '<hr>';
+        document.getElementById('streamElements').appendChild(divider);
+      }
+
+      document.getElementById('sppCounter').textContent =
+        streamLessonIndex + ' of 8 complete';
+    }
+
+    function stopStreaming() {
+      if (streamTimer) {
+        clearInterval(streamTimer);
+        streamTimer = null;
+      }
+      var genEl = document.querySelector('.stream-el.generating');
+      if (genEl) genEl.classList.remove('generating');
+
+      document.getElementById('streamStopBtn').style.display = 'none';
+      var completeDiv = document.getElementById('streamComplete');
+      completeDiv.style.display = 'flex';
+      completeDiv.querySelector('.stream-complete-text').textContent = 'Generation Stopped';
+      var icon = completeDiv.querySelector('.stream-complete-icon');
+      icon.textContent = '■';
+      icon.style.background = '#ef4444';
+    }
+
+    function completeStreaming() {
+      document.querySelectorAll('.spp-item').forEach(function(item) {
+        item.className = 'spp-item completed';
+        item.querySelector('.spp-status').innerHTML = '<span class="spp-check">✓</span>';
+      });
+
+      document.getElementById('sppCounter').textContent = '8 of 8 complete';
+      document.getElementById('streamProgressFill').style.width = '100%';
+      document.getElementById('streamStatusText').textContent = 'All lessons generated';
+
+      var genEl = document.querySelector('.stream-el.generating');
+      if (genEl) genEl.classList.remove('generating');
+
+      document.getElementById('streamStopBtn').style.display = 'none';
+      var completeDiv = document.getElementById('streamComplete');
+      completeDiv.style.display = 'flex';
+      completeDiv.querySelector('.stream-complete-text').textContent = 'Generation Complete';
+      var icon = completeDiv.querySelector('.stream-complete-icon');
+      icon.textContent = '✓';
+      icon.style.background = 'var(--brand)';
+    }
+
     // Close dropdowns on outside click
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.lesson-dropdown-wrap')) {
         document.getElementById('lessonDropdownMenu').classList.remove('open');
       }
       if (!e.target.closest('.add-lesson-wrap')) {
-        document.getElementById('addMenu').classList.remove('open');
+        var el = document.getElementById('addMenu');
+        if (el) el.classList.remove('open');
       }
     });
 
