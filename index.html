@@ -312,8 +312,111 @@
     }
     .gen-cta:hover { background: var(--brand-dark); }
 
-    /* ═══════ STATE C: Review + live editor ═══════ */
-    .state-c { flex-direction: row; }
+    /* Chat-style input box for course description */
+    .gen-input-box {
+      border: 1.5px solid var(--line); border-radius: var(--radius);
+      display: flex; flex-direction: column; background: #fff;
+      transition: border-color 0.15s;
+    }
+    .gen-input-box:focus-within { border-color: var(--brand); }
+    .gen-input-box textarea {
+      border: none; outline: none; padding: 14px; font-size: 14px;
+      font-family: inherit; resize: vertical; min-height: 100px;
+      line-height: 1.5; color: var(--text); border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .gen-input-box textarea::placeholder { color: var(--muted2); }
+    .gen-input-footer {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      padding: 8px 12px; border-top: 1px solid var(--line); min-height: 40px;
+    }
+    .gen-attach-btn {
+      background: none; border: none; cursor: pointer; font-size: 18px;
+      color: var(--muted); padding: 2px 4px; border-radius: 4px;
+      display: flex; align-items: center; transition: color 0.15s;
+    }
+    .gen-attach-btn:hover { color: var(--brand-dark); }
+    .gen-attach-hint {
+      font-size: 10px; color: var(--muted2); margin-left: auto;
+    }
+
+    /* Course objectives textarea (smaller) */
+    .gen-textarea-sm {
+      width: 100%; border: 1.5px solid var(--line); border-radius: var(--radius);
+      padding: 12px 14px; font-size: 13px; font-family: inherit; resize: vertical;
+      min-height: 70px; line-height: 1.5; color: var(--text);
+    }
+    .gen-textarea-sm:focus { outline: none; border-color: var(--brand); }
+    .gen-textarea-sm::placeholder { color: var(--muted2); }
+
+    /* Image style dropdown */
+    .gen-select {
+      width: 100%; border: 1.5px solid var(--line); border-radius: var(--radius);
+      padding: 10px 14px; font-size: 14px; font-family: inherit;
+      color: var(--text); background: #fff; cursor: pointer;
+      appearance: auto;
+    }
+    .gen-select:focus { outline: none; border-color: var(--brand); }
+
+    /* ═══════ STATE C: Outline Review ═══════ */
+    .state-c { flex-direction: column; align-items: center; justify-content: flex-start; background: #fff; overflow: auto; }
+    .outline-review-wrapper { width: 100%; max-width: 620px; padding: 32px 24px; }
+    .outline-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;
+    }
+    .outline-header h3 { font-size: 20px; font-weight: 600; }
+    .outline-summary {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+      padding: 14px 16px; background: var(--bg); border-radius: var(--radius);
+    }
+    .outline-summary-title { font-size: 15px; font-weight: 600; color: var(--text); }
+    .outline-summary-badge {
+      font-size: 11px; color: var(--brand-dark); background: var(--brand-bg);
+      border: 1px solid var(--brand-light); border-radius: 12px; padding: 3px 10px; font-weight: 500;
+    }
+    .outline-list { margin-bottom: 16px; }
+    .outline-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius);
+      margin-bottom: 6px; background: #fff; transition: all 0.15s; cursor: default;
+    }
+    .outline-item:hover { border-color: var(--brand-light); background: var(--brand-bg); }
+    .outline-grip { color: var(--muted2); font-size: 14px; cursor: grab; flex-shrink: 0; }
+    .outline-item-info { flex: 1; min-width: 0; }
+    .outline-item-name {
+      font-size: 13px; font-weight: 500; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .outline-item-input {
+      font-size: 13px; font-weight: 500; font-family: inherit;
+      border: 1px solid var(--brand); border-radius: 4px;
+      padding: 2px 6px; width: 100%; outline: none;
+      background: #fff;
+    }
+    .outline-type-badge {
+      font-size: 10px; color: var(--muted2); background: var(--bg);
+      border-radius: 8px; padding: 2px 8px; font-weight: 500; flex-shrink: 0;
+    }
+    .outline-type-badge.quiz { color: #b45309; background: #fef3c7; }
+    .outline-actions { display: flex; gap: 4px; flex-shrink: 0; }
+    .outline-action {
+      width: 28px; height: 28px; border: none; background: none;
+      border-radius: 4px; cursor: pointer; display: grid; place-items: center;
+      font-size: 13px; color: var(--muted2); transition: all 0.1s;
+    }
+    .outline-action:hover { background: var(--line); color: var(--text); }
+    .outline-add-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      width: 100%; padding: 10px; border: 1.5px dashed var(--line2);
+      border-radius: var(--radius); background: none; font-size: 13px;
+      color: var(--brand-dark); font-weight: 600; cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+    }
+    .outline-add-btn:hover { border-color: var(--brand); background: var(--brand-bg); }
+    .outline-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 16px; border-top: 1px solid var(--line); margin-top: 8px;
+    }
+    .outline-hint { font-size: 12px; color: var(--muted2); max-width: 280px; line-height: 1.4; }
 
     /* Shared editor column */
     .editor-col { flex: 1; display: flex; flex-direction: column; min-width: 0; }
@@ -469,50 +572,40 @@
     /* ═══════ STATE E: Streaming Generation ═══════ */
     .state-e { flex-direction: row; }
 
-    /* Left panel: lesson progress */
-    .stream-progress-panel {
-      width: 260px; background: #fff; border-right: 1px solid var(--line);
-      display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden;
+    /* Streaming states for lesson dropdown items */
+    .ldd-item.streaming-pending {
+      opacity: 0.45; pointer-events: none;
     }
-    .spp-header {
-      padding: 14px 16px; border-bottom: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: space-between;
+    .ldd-item.streaming-pending .ldd-actions { display: none; }
+    .ldd-item.streaming-active {
+      background: var(--brand-bg); pointer-events: none;
     }
-    .spp-header h4 { font-size: 13px; font-weight: 600; }
-    .spp-counter { font-size: 11px; color: var(--muted); font-weight: 500; }
-
-    .spp-list { flex: 1; overflow: auto; padding: 8px; }
-    .spp-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 9px 10px; border-radius: 6px; margin-bottom: 2px;
-      transition: background 0.2s;
+    .ldd-item.streaming-active .ldd-actions { display: none; }
+    .ldd-item.streaming-active .ldd-grip { visibility: hidden; }
+    .ldd-item.streaming-complete .ldd-grip { visibility: hidden; }
+    .ldd-status-icon {
+      width: 18px; height: 18px; display: inline-grid; place-items: center;
+      flex-shrink: 0; margin-right: 2px;
     }
-    .spp-item.in-progress { background: var(--brand-bg); }
-    .spp-item.completed { opacity: 0.7; }
-
-    .spp-status { width: 20px; height: 20px; display: grid; place-items: center; flex-shrink: 0; }
-    .spp-circle {
-      width: 10px; height: 10px; border-radius: 50%;
-      border: 1.5px solid var(--line2); background: transparent;
-    }
-    .spp-check {
-      width: 18px; height: 18px; border-radius: 50%; background: var(--brand);
-      display: grid; place-items: center; color: #fff; font-size: 10px; font-weight: 700;
-    }
-    .spp-spinner {
-      width: 16px; height: 16px; border: 2px solid var(--brand-light);
+    .ldd-status-icon .ldd-spinner {
+      width: 14px; height: 14px; border: 2px solid var(--brand-light);
       border-top-color: var(--brand); border-radius: 50%;
-      animation: spp-spin 0.8s linear infinite;
+      animation: ldd-spin 0.8s linear infinite;
     }
-    @keyframes spp-spin { to { transform: rotate(360deg); } }
+    @keyframes ldd-spin { to { transform: rotate(360deg); } }
+    .ldd-status-icon .ldd-check {
+      width: 16px; height: 16px; border-radius: 50%; background: var(--brand);
+      display: grid; place-items: center; color: #fff; font-size: 9px; font-weight: 700;
+    }
+    .ldd-status-icon .ldd-circle {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 1.5px solid var(--line2);
+    }
 
-    .spp-info { flex: 1; min-width: 0; }
-    .spp-name {
-      font-size: 12px; font-weight: 500;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    /* Elements panel lock during streaming */
+    .elements-panel.streaming-locked {
+      opacity: 0.5; pointer-events: none;
     }
-    .spp-item.in-progress .spp-name { color: var(--brand-dark); font-weight: 600; }
-    .spp-type { font-size: 10px; color: var(--muted2); }
 
     /* Center: streaming canvas */
     .stream-canvas {
@@ -901,18 +994,19 @@
               </div>
               <div class="gen-section">
                 <div class="gen-label">Describe your course</div>
-                <textarea class="gen-textarea" placeholder="e.g. Forklift safety training for warehouse employees covering pre-op inspection, safe driving, load handling, and emergency procedures.">Forklift safety training for warehouse employees covering pre-op inspection, safe driving, load handling, and emergency procedures.</textarea>
+                <div class="gen-input-box">
+                  <textarea placeholder="e.g. Forklift safety training for warehouse employees covering pre-op inspection, safe driving, load handling, and emergency procedures.">Forklift safety training for warehouse employees covering pre-op inspection, safe driving, load handling, and emergency procedures.</textarea>
+                  <div class="gen-input-footer">
+                    <button class="gen-attach-btn" title="Attach files">📎</button>
+                    <div class="file-chip">📄 OSHA-forklift-guide.pdf <span class="x">×</span></div>
+                    <div class="file-chip">📄 warehouse-sops.docx <span class="x">×</span></div>
+                    <span class="gen-attach-hint">PDF, DOCX, PPTX, TXT</span>
+                  </div>
+                </div>
               </div>
               <div class="gen-section">
-                <div class="gen-label">Reference materials (optional)</div>
-                <div class="file-drop">
-                  <div class="file-drop-text"><strong>Drop files here</strong> or click to browse</div>
-                  <div class="file-drop-hint">PDF, DOCX, PPTX, TXT — up to 25 MB each</div>
-                </div>
-                <div class="file-chips">
-                  <div class="file-chip">📄 OSHA-forklift-guide.pdf <span class="x">×</span></div>
-                  <div class="file-chip">📄 warehouse-sops.docx <span class="x">×</span></div>
-                </div>
+                <div class="gen-label">Course objectives (optional)</div>
+                <textarea class="gen-textarea-sm" placeholder="e.g. Learners will be able to identify pre-operation safety checks, demonstrate proper load handling techniques, and respond to emergency scenarios."></textarea>
               </div>
               <div class="gen-section">
                 <div class="gen-label">Course style</div>
@@ -925,6 +1019,19 @@
                   <div class="style-pill" onclick="selectStyle(this)"><span class="pill-label">Quick Reference</span><span class="pill-time">1–3 minutes</span></div>
                 </div>
               </div>
+              <div class="gen-section">
+                <div class="gen-label">Image style</div>
+                <select class="gen-select">
+                  <option selected>Auto</option>
+                  <option>None</option>
+                  <option>Photographic</option>
+                  <option>Cartoon</option>
+                  <option>Watercolor</option>
+                  <option>3D Render</option>
+                  <option>Flat Illustration</option>
+                  <option>Isometric</option>
+                </select>
+              </div>
               <div class="gen-footer-bar">
                 <div class="gen-hint">AI will propose a lesson outline you can review and edit before anything is created.</div>
                 <button class="gen-cta" onclick="switchState('c')">✨ Generate</button>
@@ -932,25 +1039,111 @@
             </div>
           </div>
 
-          <!-- ════ STATE C: Review + live editor ════ -->
+          <!-- ════ STATE C: Outline Review & Edit ════ -->
           <div class="state state-c" id="stateC">
-            <div class="editor-col">
-              <div class="editor-dropzone">
-                <div class="editor-empty">
-                  <h3>1. Introduction &amp; Why Forklifts Hurt People</h3>
-                  <p class="drop-instruction">Drag an element or file(s) here to begin creating your lesson</p>
-                  <button class="generate-content-btn" onclick="switchState('e')">✨ Generate content with MOBI</button>
+            <div class="outline-review-wrapper">
+              <div class="outline-header">
+                <h3>Review Course Outline</h3>
+                <button class="gen-back" onclick="switchState('b')">← Back</button>
+              </div>
+              <div class="outline-summary">
+                <span class="outline-summary-title">Forklift Safety Training</span>
+                <span class="outline-summary-badge">Professional Training · 30–60 min</span>
+              </div>
+              <div class="outline-list" id="outlineList">
+                <div class="outline-item">
+                  <span class="outline-grip">⠿</span>
+                  <div class="outline-item-info">
+                    <span class="outline-item-name">1. Introduction &amp; Why Forklifts Hurt People</span>
+                  </div>
+                  <span class="outline-type-badge">Lesson</span>
+                  <div class="outline-actions">
+                    <button class="outline-action" title="Edit" onclick="editOutlineItem(this)">✎</button>
+                    <button class="outline-action" title="Delete">🗑</button>
+                  </div>
+                </div>
+                <div class="outline-item">
+                  <span class="outline-grip">⠿</span>
+                  <div class="outline-item-info">
+                    <span class="outline-item-name">2. Equipment Basics: Controls &amp; Stability</span>
+                  </div>
+                  <span class="outline-type-badge">Lesson</span>
+                  <div class="outline-actions">
+                    <button class="outline-action" title="Edit" onclick="editOutlineItem(this)">✎</button>
+                    <button class="outline-action" title="Delete">🗑</button>
+                  </div>
+                </div>
+                <div class="outline-item">
+                  <span class="outline-grip">⠿</span>
+                  <div class="outline-item-info">
+                    <span class="outline-item-name">Knowledge Check: Basics</span>
+                  </div>
+                  <span class="outline-type-badge quiz">Quiz</span>
+                  <div class="outline-actions">
+                    <button class="outline-action" title="Edit" onclick="editOutlineItem(this)">✎</button>
+                    <button class="outline-action" title="Delete">🗑</button>
+                  </div>
+                </div>
+                <div class="outline-item">
+                  <span class="outline-grip">⠿</span>
+                  <div class="outline-item-info">
+                    <span class="outline-item-name">3. Pre-Op Inspection &amp; Daily Checklist</span>
+                  </div>
+                  <span class="outline-type-badge">Lesson</span>
+                  <div class="outline-actions">
+                    <button class="outline-action" title="Edit" onclick="editOutlineItem(this)">✎</button>
+                    <button class="outline-action" title="Delete">🗑</button>
+                  </div>
+                </div>
+                <div class="outline-item">
+                  <span class="outline-grip">⠿</span>
+                  <div class="outline-item-info">
+                    <span class="outline-item-name">4. Safe Driving: Speed, Turns &amp; Loads</span>
+                  </div>
+                  <span class="outline-type-badge">Lesson</span>
+                  <div class="outline-actions">
+                    <button class="outline-action" title="Edit" onclick="editOutlineItem(this)">✎</button>
+                    <button class="outline-action" title="Delete">🗑</button>
+                  </div>
+                </div>
+                <div class="outline-item">
+                  <span class="outline-grip">⠿</span>
+                  <div class="outline-item-info">
+                    <span class="outline-item-name">Knowledge Check: Operations</span>
+                  </div>
+                  <span class="outline-type-badge quiz">Quiz</span>
+                  <div class="outline-actions">
+                    <button class="outline-action" title="Edit" onclick="editOutlineItem(this)">✎</button>
+                    <button class="outline-action" title="Delete">🗑</button>
+                  </div>
+                </div>
+                <div class="outline-item">
+                  <span class="outline-grip">⠿</span>
+                  <div class="outline-item-info">
+                    <span class="outline-item-name">5. Hazards &amp; Emergency Response</span>
+                  </div>
+                  <span class="outline-type-badge">Lesson</span>
+                  <div class="outline-actions">
+                    <button class="outline-action" title="Edit" onclick="editOutlineItem(this)">✎</button>
+                    <button class="outline-action" title="Delete">🗑</button>
+                  </div>
+                </div>
+                <div class="outline-item">
+                  <span class="outline-grip">⠿</span>
+                  <div class="outline-item-info">
+                    <span class="outline-item-name">6. Wrap-Up &amp; Final Assessment</span>
+                  </div>
+                  <span class="outline-type-badge">Lesson</span>
+                  <div class="outline-actions">
+                    <button class="outline-action" title="Edit" onclick="editOutlineItem(this)">✎</button>
+                    <button class="outline-action" title="Delete">🗑</button>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="elements-panel">
-              <div class="ep-tabs"><div class="ep-tab active">Elements</div><div class="ep-tab">Properties</div><div class="ep-tab">Review</div></div>
-              <div class="ep-body">
-                <div class="ep-section"><div class="ep-section-title">Text</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Heading</div><div class="ep-tile"><div class="ep-tile-icon"></div>Paragraph</div><div class="ep-tile"><div class="ep-tile-icon"></div>Bullets</div></div></div>
-                <div class="ep-section"><div class="ep-section-title">Image</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Image</div><div class="ep-tile"><div class="ep-tile-icon"></div>Text+Img</div><div class="ep-tile"><div class="ep-tile-icon"></div>Gallery</div></div></div>
-                <div class="ep-section"><div class="ep-section-title">Interactive</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Quiz</div><div class="ep-tile"><div class="ep-tile-icon"></div>Flip Card</div><div class="ep-tile"><div class="ep-tile-icon"></div>Accordion</div></div></div>
-                <div class="ep-section"><div class="ep-section-title">Multimedia</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Video</div><div class="ep-tile"><div class="ep-tile-icon"></div>Audio</div><div class="ep-tile"><div class="ep-tile-icon"></div>SCORM</div></div></div>
+              <button class="outline-add-btn">+ Add Lesson</button>
+              <div class="outline-footer">
+                <span class="outline-hint">Reorder, rename, or remove lessons before generating content.</span>
+                <button class="gen-cta" onclick="switchState('e')">✨ Generate Content</button>
               </div>
             </div>
           </div>
@@ -982,72 +1175,6 @@
           <!-- ════ STATE E: Streaming Generation ════ -->
           <div class="state state-e" id="stateE">
 
-            <!-- Left: Lesson progress panel -->
-            <div class="stream-progress-panel">
-              <div class="spp-header">
-                <h4>Course Progress</h4>
-                <span class="spp-counter" id="sppCounter">0 of 8 complete</span>
-              </div>
-              <div class="spp-list" id="sppList">
-                <div class="spp-item in-progress" data-spp-index="0">
-                  <span class="spp-status"><span class="spp-spinner"></span></span>
-                  <div class="spp-info">
-                    <div class="spp-name">1. Introduction &amp; Why Forklifts Hurt People</div>
-                    <div class="spp-type">Lesson</div>
-                  </div>
-                </div>
-                <div class="spp-item pending" data-spp-index="1">
-                  <span class="spp-status"><span class="spp-circle"></span></span>
-                  <div class="spp-info">
-                    <div class="spp-name">2. Equipment Basics: Controls &amp; Stability</div>
-                    <div class="spp-type">Lesson</div>
-                  </div>
-                </div>
-                <div class="spp-item pending" data-spp-index="2">
-                  <span class="spp-status"><span class="spp-circle"></span></span>
-                  <div class="spp-info">
-                    <div class="spp-name">Knowledge Check: Basics</div>
-                    <div class="spp-type">Quiz</div>
-                  </div>
-                </div>
-                <div class="spp-item pending" data-spp-index="3">
-                  <span class="spp-status"><span class="spp-circle"></span></span>
-                  <div class="spp-info">
-                    <div class="spp-name">3. Pre-Op Inspection &amp; Daily Checklist</div>
-                    <div class="spp-type">Lesson</div>
-                  </div>
-                </div>
-                <div class="spp-item pending" data-spp-index="4">
-                  <span class="spp-status"><span class="spp-circle"></span></span>
-                  <div class="spp-info">
-                    <div class="spp-name">4. Safe Driving: Speed, Turns &amp; Loads</div>
-                    <div class="spp-type">Lesson</div>
-                  </div>
-                </div>
-                <div class="spp-item pending" data-spp-index="5">
-                  <span class="spp-status"><span class="spp-circle"></span></span>
-                  <div class="spp-info">
-                    <div class="spp-name">Knowledge Check: Operations</div>
-                    <div class="spp-type">Quiz</div>
-                  </div>
-                </div>
-                <div class="spp-item pending" data-spp-index="6">
-                  <span class="spp-status"><span class="spp-circle"></span></span>
-                  <div class="spp-info">
-                    <div class="spp-name">5. Hazards &amp; Emergency Response</div>
-                    <div class="spp-type">Lesson</div>
-                  </div>
-                </div>
-                <div class="spp-item pending" data-spp-index="7">
-                  <span class="spp-status"><span class="spp-circle"></span></span>
-                  <div class="spp-info">
-                    <div class="spp-name">6. Wrap-Up &amp; Final Assessment</div>
-                    <div class="spp-type">Lesson</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- Center: Streaming canvas -->
             <div class="stream-canvas">
               <div class="stream-topbar">
@@ -1075,6 +1202,17 @@
                   <span class="stream-complete-text">Generation Complete</span>
                   <button class="stream-proceed-btn" onclick="switchState('d')">Open in Editor →</button>
                 </div>
+              </div>
+            </div>
+
+            <!-- Right: Elements panel (locked per-lesson during streaming) -->
+            <div class="elements-panel streaming-locked" id="streamElementsPanel">
+              <div class="ep-tabs"><div class="ep-tab active">Elements</div><div class="ep-tab">Properties</div><div class="ep-tab">Review</div></div>
+              <div class="ep-body">
+                <div class="ep-section"><div class="ep-section-title">Text</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Heading</div><div class="ep-tile"><div class="ep-tile-icon"></div>Paragraph</div><div class="ep-tile"><div class="ep-tile-icon"></div>Bullets</div></div></div>
+                <div class="ep-section"><div class="ep-section-title">Image</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Image</div><div class="ep-tile"><div class="ep-tile-icon"></div>Text+Img</div><div class="ep-tile"><div class="ep-tile-icon"></div>Gallery</div></div></div>
+                <div class="ep-section"><div class="ep-section-title">Interactive</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Quiz</div><div class="ep-tile"><div class="ep-tile-icon"></div>Flip Card</div><div class="ep-tile"><div class="ep-tile-icon"></div>Accordion</div></div></div>
+                <div class="ep-section"><div class="ep-section-title">Multimedia</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Video</div><div class="ep-tile"><div class="ep-tile-icon"></div>Audio</div><div class="ep-tile"><div class="ep-tile-icon"></div>SCORM</div></div></div>
               </div>
             </div>
 
@@ -1118,7 +1256,7 @@
       s3: 'Channels page — AI course generation in background',
       a: 'Empty course — two paths: AI generate or manual build',
       b: 'Describe course + attach files + pick style → generate',
-      c: 'Editor — canvas + elements panel',
+      c: 'Review generated outline — reorder, rename, add/remove lessons',
       d: 'Accepted — pin sidebar via 📌 inside lesson dropdown',
       e: 'Streaming generation — elements appear one by one in canvas',
     };
@@ -1177,6 +1315,14 @@
         streamTimer = null;
       }
 
+      // Clean up streaming states from dropdown items when leaving any state
+      document.querySelectorAll('#lessonDropdownMenu .ldd-item').forEach(function(item) {
+        item.classList.remove('streaming-pending', 'streaming-active', 'streaming-complete');
+        item.onclick = null;
+        var icon = item.querySelector('.ldd-status-icon');
+        if (icon) icon.remove();
+      });
+
       currentState = id;
       document.querySelectorAll('.state').forEach(s => s.classList.remove('visible'));
       document.getElementById('state' + id.toUpperCase()).classList.add('visible');
@@ -1222,14 +1368,14 @@
         toolbar.style.pointerEvents = 'auto';
         courseTitle.textContent = 'Forklift Safety Training';
       } else if (id === 'e') {
-        toolbarTitle.textContent = 'Forklift Safety Training';
-        toolbarTitle.style.display = 'inline';
-        dropdownWrap.style.display = 'none';
+        // Show lesson dropdown in toolbar during streaming
+        toolbarTitle.style.display = 'none';
+        dropdownWrap.style.display = 'block';
         previewBtn.style.display = 'none';
         toolbar.style.opacity = '1';
         toolbar.style.pointerEvents = 'auto';
         courseTitle.textContent = 'Forklift Safety Training';
-        // Disable undo/redo and MOBI during streaming
+        // Disable undo/redo during streaming
         toolbarRight.style.opacity = '0.3';
         toolbarRight.style.pointerEvents = 'none';
         if (mobiBtn) {
@@ -1315,10 +1461,14 @@
       document.getElementById('mobiSidebar').classList.toggle('open', mobiOpen);
     }
 
+    // Track which lesson the user is currently viewing in the streaming canvas
+    let streamViewingLessonIndex = 0;
+
     // ── Streaming generation demo ──
     function startStreamingDemo() {
       streamElementIndex = 0;
       streamLessonIndex = 0;
+      streamViewingLessonIndex = 0;
       document.getElementById('streamElements').innerHTML = '';
       document.getElementById('streamProgressFill').style.width = '0%';
       document.getElementById('streamStatusText').textContent = 'Building lesson 1 of 8...';
@@ -1326,16 +1476,39 @@
       document.getElementById('streamLessonTitle').textContent = STREAM_LESSONS[0].name;
       document.getElementById('streamStopBtn').style.display = 'inline-block';
       document.getElementById('streamComplete').style.display = 'none';
-      document.getElementById('sppCounter').textContent = '0 of 8 complete';
 
-      // Reset all lesson progress items
-      document.querySelectorAll('.spp-item').forEach(function(item, i) {
-        item.className = 'spp-item ' + (i === 0 ? 'in-progress' : 'pending');
-        var statusEl = item.querySelector('.spp-status');
-        statusEl.innerHTML = i === 0
-          ? '<span class="spp-spinner"></span>'
-          : '<span class="spp-circle"></span>';
+      // Lock elements panel (first lesson is in-progress)
+      var epanel = document.getElementById('streamElementsPanel');
+      if (epanel) epanel.classList.add('streaming-locked');
+
+      // Initialize dropdown lesson items with streaming states
+      var lddItems = document.querySelectorAll('#lessonDropdownMenu .ldd-item');
+      lddItems.forEach(function(item, i) {
+        // Remove old streaming classes
+        item.classList.remove('streaming-pending', 'streaming-active', 'streaming-complete');
+        // Remove any previous status icons
+        var oldIcon = item.querySelector('.ldd-status-icon');
+        if (oldIcon) oldIcon.remove();
+
+        if (i === 0) {
+          item.classList.add('streaming-active');
+          // Add spinner before grip
+          var statusIcon = document.createElement('span');
+          statusIcon.className = 'ldd-status-icon';
+          statusIcon.innerHTML = '<span class="ldd-spinner"></span>';
+          item.insertBefore(statusIcon, item.firstChild);
+        } else {
+          item.classList.add('streaming-pending');
+          // Add circle indicator
+          var statusIcon = document.createElement('span');
+          statusIcon.className = 'ldd-status-icon';
+          statusIcon.innerHTML = '<span class="ldd-circle"></span>';
+          item.insertBefore(statusIcon, item.firstChild);
+        }
       });
+
+      // Update dropdown button text
+      document.querySelector('.lesson-select-btn').textContent = STREAM_LESSONS[0].name;
 
       streamTimer = setInterval(streamNextElement, 1500);
     }
@@ -1384,32 +1557,88 @@
     }
 
     function advanceLesson() {
-      var items = document.querySelectorAll('.spp-item');
-      var currentItem = items[streamLessonIndex];
-      currentItem.className = 'spp-item completed';
-      currentItem.querySelector('.spp-status').innerHTML = '<span class="spp-check">✓</span>';
+      var lddItems = document.querySelectorAll('#lessonDropdownMenu .ldd-item');
+
+      // Mark current lesson as complete in dropdown
+      var currentItem = lddItems[streamLessonIndex];
+      currentItem.classList.remove('streaming-active');
+      currentItem.classList.add('streaming-complete');
+      var statusIcon = currentItem.querySelector('.ldd-status-icon');
+      if (statusIcon) statusIcon.innerHTML = '<span class="ldd-check">✓</span>';
+      // Make completed lesson clickable
+      currentItem.onclick = function() { viewStreamingLesson(streamLessonIndex); };
 
       streamLessonIndex++;
 
-      if (streamLessonIndex < items.length) {
-        var nextItem = items[streamLessonIndex];
-        nextItem.className = 'spp-item in-progress';
-        nextItem.querySelector('.spp-status').innerHTML = '<span class="spp-spinner"></span>';
+      if (streamLessonIndex < lddItems.length) {
+        // Mark next lesson as active in dropdown
+        var nextItem = lddItems[streamLessonIndex];
+        nextItem.classList.remove('streaming-pending');
+        nextItem.classList.add('streaming-active');
+        var nextIcon = nextItem.querySelector('.ldd-status-icon');
+        if (nextIcon) nextIcon.innerHTML = '<span class="ldd-spinner"></span>';
 
         document.getElementById('streamStatusText').textContent =
           'Building lesson ' + (streamLessonIndex + 1) + ' of 8...';
         document.getElementById('streamLessonTitle').textContent =
           STREAM_LESSONS[streamLessonIndex].name;
 
+        // Update dropdown button text to current lesson
+        document.querySelector('.lesson-select-btn').textContent =
+          STREAM_LESSONS[streamLessonIndex].name;
+
+        // Update viewing index — auto-follow the current lesson
+        streamViewingLessonIndex = streamLessonIndex;
+
+        // Elements panel is locked for the new in-progress lesson
+        var epanel = document.getElementById('streamElementsPanel');
+        if (epanel) epanel.classList.add('streaming-locked');
+
         // Add a divider in the canvas
         var divider = document.createElement('div');
         divider.className = 'stream-el stream-el-divider';
+        divider.setAttribute('data-lesson-divider', streamLessonIndex);
         divider.innerHTML = '<hr>';
         document.getElementById('streamElements').appendChild(divider);
       }
+    }
 
-      document.getElementById('sppCounter').textContent =
-        streamLessonIndex + ' of 8 complete';
+    function viewStreamingLesson(lessonIdx) {
+      streamViewingLessonIndex = lessonIdx;
+      var lddItems = document.querySelectorAll('#lessonDropdownMenu .ldd-item');
+
+      // Update active highlight in dropdown
+      lddItems.forEach(function(item) { item.classList.remove('active'); });
+      lddItems[lessonIdx].classList.add('active');
+
+      // Update dropdown button text
+      document.querySelector('.lesson-select-btn').textContent =
+        STREAM_LESSONS[lessonIdx].name;
+
+      // Update lesson title in canvas
+      document.getElementById('streamLessonTitle').textContent =
+        STREAM_LESSONS[lessonIdx].name;
+
+      // Scroll to that lesson's content in the canvas
+      if (lessonIdx === 0) {
+        document.getElementById('streamElements').scrollTop = 0;
+      } else {
+        var divider = document.querySelector('[data-lesson-divider="' + lessonIdx + '"]');
+        if (divider) divider.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // Update elements panel lock based on lesson status
+      var epanel = document.getElementById('streamElementsPanel');
+      if (!epanel) return;
+      var item = lddItems[lessonIdx];
+      if (item.classList.contains('streaming-complete')) {
+        epanel.classList.remove('streaming-locked');
+      } else {
+        epanel.classList.add('streaming-locked');
+      }
+
+      // Close dropdown after selection
+      document.getElementById('lessonDropdownMenu').classList.remove('open');
     }
 
     function stopStreaming() {
@@ -1427,15 +1656,23 @@
       var icon = completeDiv.querySelector('.stream-complete-icon');
       icon.textContent = '■';
       icon.style.background = '#ef4444';
+
+      // Unlock elements panel on stop
+      var epanel = document.getElementById('streamElementsPanel');
+      if (epanel) epanel.classList.remove('streaming-locked');
     }
 
     function completeStreaming() {
-      document.querySelectorAll('.spp-item').forEach(function(item) {
-        item.className = 'spp-item completed';
-        item.querySelector('.spp-status').innerHTML = '<span class="spp-check">✓</span>';
+      // Mark all dropdown items as complete
+      var lddItems = document.querySelectorAll('#lessonDropdownMenu .ldd-item');
+      lddItems.forEach(function(item, i) {
+        item.classList.remove('streaming-pending', 'streaming-active');
+        item.classList.add('streaming-complete');
+        var statusIcon = item.querySelector('.ldd-status-icon');
+        if (statusIcon) statusIcon.innerHTML = '<span class="ldd-check">✓</span>';
+        item.onclick = function() { viewStreamingLesson(i); };
       });
 
-      document.getElementById('sppCounter').textContent = '8 of 8 complete';
       document.getElementById('streamProgressFill').style.width = '100%';
       document.getElementById('streamStatusText').textContent = 'All lessons generated';
 
@@ -1449,6 +1686,37 @@
       var icon = completeDiv.querySelector('.stream-complete-icon');
       icon.textContent = '✓';
       icon.style.background = 'var(--brand)';
+
+      // Unlock elements panel
+      var epanel = document.getElementById('streamElementsPanel');
+      if (epanel) epanel.classList.remove('streaming-locked');
+    }
+
+    // ── Outline editing ──
+    function editOutlineItem(btn) {
+      var item = btn.closest('.outline-item');
+      var nameEl = item.querySelector('.outline-item-name');
+      var currentText = nameEl.textContent;
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'outline-item-input';
+      input.value = currentText;
+      nameEl.replaceWith(input);
+      input.focus();
+      input.select();
+
+      function finishEdit() {
+        var span = document.createElement('span');
+        span.className = 'outline-item-name';
+        span.textContent = input.value || currentText;
+        input.replaceWith(span);
+      }
+
+      input.addEventListener('blur', finishEdit);
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { input.blur(); }
+        if (e.key === 'Escape') { input.value = currentText; input.blur(); }
+      });
     }
 
     // Close dropdowns on outside click
