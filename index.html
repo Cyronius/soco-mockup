@@ -67,7 +67,16 @@
     }
     .titlewrap { display: flex; flex-direction: column; }
     .title { font-size: 15px; font-weight: 600; color: #fff; line-height: 1.1; }
-    .subtitle { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+    .subtitle { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px; display: flex; align-items: center; gap: 6px; transition: opacity 0.5s ease; }
+    .subtitle.generating { color: rgba(255,255,255,0.95); }
+    .subtitle.complete   { color: rgba(255,255,255,0.95); }
+    .subtitle-stop-btn {
+      width: 14px; height: 14px; background: #ef4444; color: #fff;
+      border: none; border-radius: 3px; font-size: 8px;
+      line-height: 14px; text-align: center; cursor: pointer;
+      padding: 0; flex-shrink: 0;
+    }
+    .subtitle-stop-btn:hover { background: #dc2626; }
     .top-actions { display: flex; align-items: center; gap: 8px; }
     .top-btn {
       border: 1.5px solid rgba(255,255,255,0.5); background: transparent; color: #fff;
@@ -719,35 +728,6 @@
     .stream-el-divider { padding: 8px 0; }
     .stream-el-divider hr { border: none; border-top: 1px solid var(--line); margin: 0; }
 
-    /* Bottom controls */
-    .stream-controls {
-      padding: 12px 24px; background: #fff; border-top: 1px solid var(--line);
-      display: flex; align-items: center; gap: 12px; flex-shrink: 0;
-    }
-    .stream-stop-btn {
-      background: #fff; border: 1.5px solid #ef4444; color: #ef4444;
-      padding: 8px 20px; font-size: 13px; border-radius: var(--radius);
-      font-family: inherit; font-weight: 600; cursor: pointer;
-      transition: all 0.15s;
-    }
-    .stream-stop-btn:hover { background: #fef2f2; }
-
-    .stream-complete {
-      display: flex; align-items: center; gap: 12px; width: 100%;
-    }
-    .stream-complete-icon {
-      width: 28px; height: 28px; background: var(--brand); border-radius: 50%;
-      display: grid; place-items: center; color: #fff; font-size: 14px; font-weight: 700;
-      flex-shrink: 0;
-    }
-    .stream-complete-text { font-size: 14px; font-weight: 600; color: var(--brand-dark); }
-    .stream-proceed-btn {
-      margin-left: auto; background: var(--brand); color: #fff; border: none;
-      padding: 10px 24px; font-size: 13px; border-radius: var(--radius);
-      font-family: inherit; font-weight: 600; cursor: pointer;
-      transition: background 0.15s;
-    }
-    .stream-proceed-btn:hover { background: var(--brand-dark); }
 
     /* Generate content trigger button (State C) */
     .generate-content-btn {
@@ -791,7 +771,10 @@
         <div class="appmark">ℓ</div>
         <div class="titlewrap">
           <div class="title" id="courseTitle">New Course</div>
-          <div class="subtitle" id="courseSubtitle">Unsaved · Draft</div>
+          <div class="subtitle" id="courseSubtitle">
+            <span id="subtitleText">Unsaved · Draft</span>
+            <button id="subtitleStopBtn" class="subtitle-stop-btn" onclick="stopStreaming()" style="display:none;" title="Stop generation">■</button>
+          </div>
         </div>
       </div>
       <div class="top-actions">
@@ -1195,14 +1178,6 @@
                 <!-- Elements are injected here by JS -->
               </div>
 
-              <div class="stream-controls">
-                <button class="stream-stop-btn" id="streamStopBtn" onclick="stopStreaming()">■ Stop Generation</button>
-                <div class="stream-complete" id="streamComplete" style="display: none;">
-                  <span class="stream-complete-icon">✓</span>
-                  <span class="stream-complete-text">Generation Complete</span>
-                  <button class="stream-proceed-btn" onclick="switchState('d')">Open in Editor →</button>
-                </div>
-              </div>
             </div>
 
             <!-- Right: Elements panel (locked per-lesson during streaming) -->
@@ -1306,6 +1281,8 @@
     let streamTimer = null;
     let streamElementIndex = 0;
     let streamLessonIndex = 0;
+    let subtitleTimeout = null;
+    let subtitleFadeTimeout = null;
 
     // ── State switcher ──
     function switchState(id) {
@@ -1313,6 +1290,18 @@
       if (streamTimer) {
         clearInterval(streamTimer);
         streamTimer = null;
+      }
+
+      // Clear subtitle timeouts and reset to default
+      if (subtitleTimeout) { clearTimeout(subtitleTimeout); subtitleTimeout = null; }
+      if (subtitleFadeTimeout) { clearTimeout(subtitleFadeTimeout); subtitleFadeTimeout = null; }
+      var subtitleEl = document.getElementById('courseSubtitle');
+      if (subtitleEl) {
+        subtitleEl.classList.remove('generating', 'complete');
+        subtitleEl.style.opacity = '';
+        document.getElementById('subtitleText').textContent = 'Unsaved · Draft';
+        var stopBtn = document.getElementById('subtitleStopBtn');
+        if (stopBtn) stopBtn.style.display = 'none';
       }
 
       // Clean up streaming states from dropdown items when leaving any state
@@ -1474,8 +1463,14 @@
       document.getElementById('streamStatusText').textContent = 'Building lesson 1 of 8...';
       document.getElementById('streamElementCount').textContent = '0 elements';
       document.getElementById('streamLessonTitle').textContent = STREAM_LESSONS[0].name;
-      document.getElementById('streamStopBtn').style.display = 'inline-block';
-      document.getElementById('streamComplete').style.display = 'none';
+
+      // Set subtitle to generating state
+      var subtitleEl = document.getElementById('courseSubtitle');
+      subtitleEl.classList.remove('complete');
+      subtitleEl.classList.add('generating');
+      subtitleEl.style.opacity = '';
+      document.getElementById('subtitleText').textContent = 'Generating Lessons 1/' + STREAM_LESSONS.length;
+      document.getElementById('subtitleStopBtn').style.display = 'inline-block';
 
       // Lock elements panel (first lesson is in-progress)
       var epanel = document.getElementById('streamElementsPanel');
@@ -1580,6 +1575,8 @@
 
         document.getElementById('streamStatusText').textContent =
           'Building lesson ' + (streamLessonIndex + 1) + ' of 8...';
+        document.getElementById('subtitleText').textContent =
+          'Generating Lessons ' + (streamLessonIndex + 1) + '/' + STREAM_LESSONS.length;
         document.getElementById('streamLessonTitle').textContent =
           STREAM_LESSONS[streamLessonIndex].name;
 
@@ -1649,13 +1646,22 @@
       var genEl = document.querySelector('.stream-el.generating');
       if (genEl) genEl.classList.remove('generating');
 
-      document.getElementById('streamStopBtn').style.display = 'none';
-      var completeDiv = document.getElementById('streamComplete');
-      completeDiv.style.display = 'flex';
-      completeDiv.querySelector('.stream-complete-text').textContent = 'Generation Stopped';
-      var icon = completeDiv.querySelector('.stream-complete-icon');
-      icon.textContent = '■';
-      icon.style.background = '#ef4444';
+      // Update subtitle to stopped state
+      var subtitleEl = document.getElementById('courseSubtitle');
+      subtitleEl.classList.remove('generating');
+      subtitleEl.classList.add('complete');
+      document.getElementById('subtitleText').textContent = 'Generation Stopped';
+      document.getElementById('subtitleStopBtn').style.display = 'none';
+
+      // Revert to default after 3 seconds (no auto-transition on stop)
+      subtitleTimeout = setTimeout(function() {
+        subtitleEl.style.opacity = '0';
+        subtitleFadeTimeout = setTimeout(function() {
+          document.getElementById('subtitleText').textContent = 'Unsaved · Draft';
+          subtitleEl.classList.remove('complete');
+          subtitleEl.style.opacity = '';
+        }, 500);
+      }, 2500);
 
       // Unlock elements panel on stop
       var epanel = document.getElementById('streamElementsPanel');
@@ -1679,13 +1685,23 @@
       var genEl = document.querySelector('.stream-el.generating');
       if (genEl) genEl.classList.remove('generating');
 
-      document.getElementById('streamStopBtn').style.display = 'none';
-      var completeDiv = document.getElementById('streamComplete');
-      completeDiv.style.display = 'flex';
-      completeDiv.querySelector('.stream-complete-text').textContent = 'Generation Complete';
-      var icon = completeDiv.querySelector('.stream-complete-icon');
-      icon.textContent = '✓';
-      icon.style.background = 'var(--brand)';
+      // Update subtitle to completion state
+      var subtitleEl = document.getElementById('courseSubtitle');
+      subtitleEl.classList.remove('generating');
+      subtitleEl.classList.add('complete');
+      document.getElementById('subtitleText').textContent = 'Generation Complete!';
+      document.getElementById('subtitleStopBtn').style.display = 'none';
+
+      // After 2.5s fade out, then revert and auto-transition to editor
+      subtitleTimeout = setTimeout(function() {
+        subtitleEl.style.opacity = '0';
+        subtitleFadeTimeout = setTimeout(function() {
+          document.getElementById('subtitleText').textContent = 'Unsaved · Draft';
+          subtitleEl.classList.remove('complete');
+          subtitleEl.style.opacity = '';
+          switchState('d');
+        }, 500);
+      }, 2500);
 
       // Unlock elements panel
       var epanel = document.getElementById('streamElementsPanel');
