@@ -384,16 +384,20 @@
     }
     .outline-list { margin-bottom: 16px; }
     .outline-item {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: flex-start; gap: 10px;
       padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius);
       margin-bottom: 6px; background: #fff; transition: all 0.15s; cursor: default;
     }
     .outline-item:hover { border-color: var(--brand-light); background: var(--brand-bg); }
-    .outline-grip { color: var(--muted2); font-size: 14px; cursor: grab; flex-shrink: 0; }
+    .outline-grip { color: var(--muted2); font-size: 14px; cursor: grab; flex-shrink: 0; margin-top: 2px; }
     .outline-item-info { flex: 1; min-width: 0; }
     .outline-item-name {
       font-size: 13px; font-weight: 500; white-space: nowrap;
       overflow: hidden; text-overflow: ellipsis;
+    }
+    .outline-item-desc {
+      font-size: 11px; color: var(--muted2); margin-top: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;
     }
     .outline-item-input {
       font-size: 13px; font-weight: 500; font-family: inherit;
@@ -403,7 +407,7 @@
     }
     .outline-type-badge {
       font-size: 10px; color: var(--muted2); background: var(--bg);
-      border-radius: 8px; padding: 2px 8px; font-weight: 500; flex-shrink: 0;
+      border-radius: 8px; padding: 2px 8px; font-weight: 500; flex-shrink: 0; margin-top: 1px;
     }
     .outline-type-badge.quiz { color: #b45309; background: #fef3c7; }
     .outline-actions { display: flex; gap: 4px; flex-shrink: 0; }
@@ -896,7 +900,7 @@
                     <path d="M17 3.5v3M15.5 5h3" stroke-linecap="round" stroke-width="1.2"/>
                   </svg>
                 </div>
-                <h3>Generate Outline</h3>
+                <h3>Generate Course Using AI</h3>
                 <p>Describe your topic and optionally upload reference materials (PDFs, docs, slides). AI will propose a lesson structure you can refine.</p>
               </div>
               <div class="start-card" onclick="switchState('d')">
@@ -916,7 +920,7 @@
           <div class="state state-b" id="stateB">
             <div class="gen-form-wrapper">
               <div class="gen-form-header">
-                <h3>Generate Course Outline</h3>
+                <h3 style="margin-top: 1em;">Generate Course Outline</h3>
                 <button class="gen-back" onclick="switchState('a')">← Back</button>
               </div>
               <div class="gen-section">
@@ -938,12 +942,11 @@
               <div class="gen-section">
                 <div class="gen-label">Course style</div>
                 <div class="style-grid">
-                  <div class="style-pill" onclick="selectStyle(this)"><span class="pill-label">Micro-learning</span><span class="pill-time">5–10 minutes</span></div>
-                  <div class="style-pill" onclick="selectStyle(this)"><span class="pill-label">News Release</span><span class="pill-time">3–5 minutes</span></div>
-                  <div class="style-pill selected" onclick="selectStyle(this)"><span class="pill-label">Professional Training</span><span class="pill-time">30–60 minutes</span></div>
-                  <div class="style-pill" onclick="selectStyle(this)"><span class="pill-label">Onboarding</span><span class="pill-time">60–90 minutes</span></div>
-                  <div class="style-pill" onclick="selectStyle(this)"><span class="pill-label">Compliance</span><span class="pill-time">15–45 minutes</span></div>
                   <div class="style-pill" onclick="selectStyle(this)"><span class="pill-label">Quick Reference</span><span class="pill-time">1–3 minutes</span></div>
+                  <div class="style-pill" onclick="selectStyle(this)"><span class="pill-label">Microlearning</span><span class="pill-time">5–10 minutes</span></div>
+                  <div class="style-pill" onclick="selectStyle(this)"><span class="pill-label">Focused Lesson</span><span class="pill-time">10-20 minutes</span></div>
+                  <div class="style-pill selected" onclick="selectStyle(this)"><span class="pill-label">Core Modules</span><span class="pill-time">20-40 minutes</span></div>
+                  <div class="style-pill" onclick="selectStyle(this)"><span class="pill-label">Deep Dive</span><span class="pill-time">40-60 minutes</span></div>                  
                 </div>
               </div>
               <div class="gen-section">
@@ -982,6 +985,7 @@
                   <span class="outline-grip">⠿</span>
                   <div class="outline-item-info">
                     <span class="outline-item-name">1. Introduction &amp; Why Forklifts Hurt People</span>
+                    <span class="outline-item-desc">Overview of workplace injuries and why proper training saves lives</span>
                   </div>
                   <span class="outline-type-badge">Lesson</span>
                   <div class="outline-actions">
@@ -993,6 +997,7 @@
                   <span class="outline-grip">⠿</span>
                   <div class="outline-item-info">
                     <span class="outline-item-name">2. Equipment Basics: Controls &amp; Stability</span>
+                    <span class="outline-item-desc">Key controls, load capacity, and the stability triangle</span>
                   </div>
                   <span class="outline-type-badge">Lesson</span>
                   <div class="outline-actions">
@@ -1004,6 +1009,7 @@
                   <span class="outline-grip">⠿</span>
                   <div class="outline-item-info">
                     <span class="outline-item-name">Knowledge Check: Basics</span>
+                    <span class="outline-item-desc">5 questions covering forklift types and control fundamentals</span>
                   </div>
                   <span class="outline-type-badge quiz">Quiz</span>
                   <div class="outline-actions">
@@ -1015,6 +1021,7 @@
                   <span class="outline-grip">⠿</span>
                   <div class="outline-item-info">
                     <span class="outline-item-name">3. Pre-Op Inspection &amp; Daily Checklist</span>
+                    <span class="outline-item-desc">Step-by-step inspection routine to complete before every shift</span>
                   </div>
                   <span class="outline-type-badge">Lesson</span>
                   <div class="outline-actions">
@@ -1026,6 +1033,7 @@
                   <span class="outline-grip">⠿</span>
                   <div class="outline-item-info">
                     <span class="outline-item-name">4. Safe Driving: Speed, Turns &amp; Loads</span>
+                    <span class="outline-item-desc">Speed limits, safe turning techniques, and load handling rules</span>
                   </div>
                   <span class="outline-type-badge">Lesson</span>
                   <div class="outline-actions">
@@ -1037,6 +1045,7 @@
                   <span class="outline-grip">⠿</span>
                   <div class="outline-item-info">
                     <span class="outline-item-name">Knowledge Check: Operations</span>
+                    <span class="outline-item-desc">Test your knowledge of safe driving and inspection procedures</span>
                   </div>
                   <span class="outline-type-badge quiz">Quiz</span>
                   <div class="outline-actions">
@@ -1048,6 +1057,7 @@
                   <span class="outline-grip">⠿</span>
                   <div class="outline-item-info">
                     <span class="outline-item-name">5. Hazards &amp; Emergency Response</span>
+                    <span class="outline-item-desc">Identify common hazards and how to respond to incidents</span>
                   </div>
                   <span class="outline-type-badge">Lesson</span>
                   <div class="outline-actions">
@@ -1059,6 +1069,7 @@
                   <span class="outline-grip">⠿</span>
                   <div class="outline-item-info">
                     <span class="outline-item-name">6. Wrap-Up &amp; Final Assessment</span>
+                    <span class="outline-item-desc">Review key concepts and complete the certification assessment</span>
                   </div>
                   <span class="outline-type-badge">Lesson</span>
                   <div class="outline-actions">
@@ -1068,6 +1079,7 @@
                 </div>
               </div>
               <button class="outline-add-btn">+ Add Lesson</button>
+              <textarea class="gen-input-box textarea" style="width: 100%; resize: none; margin-top: 1em; padding: 1em;" placeholder="Any changes to the outline?"></textarea>
               <div class="outline-footer">
                 <span class="outline-hint">Reorder, rename, or remove lessons before generating content.</span>
                 <button class="gen-cta" onclick="switchState('e')">✨ Generate Content</button>
@@ -1250,6 +1262,10 @@
       const toolbarRight = document.getElementById('toolbarRight');
       const courseTitle = document.getElementById('courseTitle');
       const mobiBtn = document.querySelector('.top-btn[onclick="toggleMobi()"]');
+      const nav = document.querySelector('.nav');
+
+      // Hide left nav for new/empty course states
+      nav.style.display = (id === 'a' || id === 'b') ? 'none' : '';
 
       // Reset MOBI button and toolbar-right for all states
       toolbarRight.style.opacity = '1';
