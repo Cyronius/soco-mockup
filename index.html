@@ -476,61 +476,6 @@
     .ep-tile:hover { border-color: var(--brand); background: var(--brand-bg); color: var(--brand-dark); }
     .ep-tile-icon { width: 24px; height: 24px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); }
 
-    /* ═══════ STATE D: Editor with pinnable sidebar ═══════ */
-    .state-d { flex-direction: row; }
-
-    .lessons-sidebar {
-      width: 260px; background: #fff; border-right: 1px solid var(--line);
-      display: flex; flex-direction: column; flex-shrink: 0;
-      transition: width 0.25s ease, opacity 0.2s ease; overflow: hidden;
-    }
-    .lessons-sidebar.collapsed { width: 0; border-right: none; opacity: 0; pointer-events: none; }
-    .ls-header {
-      padding: 12px 16px; border-bottom: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .ls-header h4 { font-size: 13px; font-weight: 600; white-space: nowrap; }
-    .ls-header-actions { display: flex; align-items: center; gap: 6px; }
-
-    .add-lesson-wrap { position: relative; }
-    .ls-add {
-      display: flex; align-items: center; gap: 4px;
-      border: 1px solid var(--line); background: #fff; border-radius: var(--radius-sm);
-      padding: 4px 8px; cursor: pointer; font-size: 12px; color: var(--brand-dark);
-      font-family: inherit; font-weight: 600; transition: all 0.12s;
-    }
-    .ls-add:hover { border-color: var(--brand); background: var(--brand-bg); }
-    .add-menu {
-      display: none; position: absolute; top: 100%; right: 0; margin-top: 4px;
-      background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12); min-width: 180px; z-index: 200; padding: 6px 0;
-    }
-    .add-menu.open { display: block; }
-    .add-menu-item {
-      padding: 8px 16px; font-size: 13px; cursor: pointer;
-      color: var(--text); transition: background 0.1s; display: flex; align-items: center; gap: 8px;
-    }
-    .add-menu-item:hover { background: var(--brand-bg); color: var(--brand-dark); }
-    .add-menu-item .am-icon { font-size: 14px; width: 20px; text-align: center; }
-
-    .ls-list { flex: 1; overflow: auto; padding: 8px; }
-    .ls-item {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 10px; border-radius: 6px; cursor: pointer;
-      transition: background 0.12s; margin-bottom: 2px;
-    }
-    .ls-item:hover { background: var(--bg); }
-    .ls-item.active { background: var(--brand-bg); }
-    .ls-grip { color: var(--muted2); font-size: 12px; cursor: grab; flex-shrink: 0; }
-    .ls-item.active .ls-grip { color: var(--brand); }
-    .ls-info { flex: 1; min-width: 0; }
-    .ls-name { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .ls-item.active .ls-name { color: var(--brand-dark); font-weight: 600; }
-    .ls-type { font-size: 10px; color: var(--muted2); }
-    .ls-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .ls-dot.empty { border: 1.5px solid var(--line2); background: transparent; }
-    .ls-dot.has-content { background: var(--brand); border: none; }
-
     /* ═══════ MOBI sidebar (push layout) ═══════ */
     .mobi-sidebar {
       width: 0; background: #fff; border-left: none;
@@ -749,8 +694,7 @@
     <button class="state-btn" data-state="a" onclick="switchState('a')">④ New Course</button>
     <button class="state-btn" data-state="b" onclick="switchState('b')">⑤ Generate Outline</button>
     <button class="state-btn" data-state="c" onclick="switchState('c')">⑥ Review &amp; Edit</button>
-    <button class="state-btn" data-state="d" onclick="switchState('d')">⑦ Editor (Accepted)</button>
-    <button class="state-btn" data-state="e" onclick="switchState('e')">⑧ Streaming</button>
+    <button class="state-btn" data-state="e" onclick="switchState('e')">⑦ Streaming</button>
     <span class="state-note" id="stateNote">Channels page with existing content</span>
   </div>
 
@@ -1131,30 +1075,6 @@
             </div>
           </div>
 
-          <!-- ════ STATE D: Full editor ════ -->
-          <div class="state state-d" id="stateD">
-
-            <div class="editor-col">
-              <div class="editor-dropzone">
-                <div class="editor-empty">
-                  <h3>1. Introduction &amp; Why Forklifts Hurt People</h3>
-                  <p class="drop-instruction">Drag an element or file(s) here to begin creating your lesson</p>
-                  <button class="generate-lesson-btn">✨ Generate Lesson</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="elements-panel">
-              <div class="ep-tabs"><div class="ep-tab active">Elements</div><div class="ep-tab">Properties</div><div class="ep-tab">Review</div></div>
-              <div class="ep-body">
-                <div class="ep-section"><div class="ep-section-title">Text</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Heading</div><div class="ep-tile"><div class="ep-tile-icon"></div>Paragraph</div><div class="ep-tile"><div class="ep-tile-icon"></div>Bullets</div></div></div>
-                <div class="ep-section"><div class="ep-section-title">Image</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Image</div><div class="ep-tile"><div class="ep-tile-icon"></div>Text+Img</div><div class="ep-tile"><div class="ep-tile-icon"></div>Gallery</div></div></div>
-                <div class="ep-section"><div class="ep-section-title">Interactive</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Quiz</div><div class="ep-tile"><div class="ep-tile-icon"></div>Flip Card</div><div class="ep-tile"><div class="ep-tile-icon"></div>Accordion</div></div></div>
-                <div class="ep-section"><div class="ep-section-title">Multimedia</div><div class="ep-grid"><div class="ep-tile"><div class="ep-tile-icon"></div>Video</div><div class="ep-tile"><div class="ep-tile-icon"></div>Audio</div><div class="ep-tile"><div class="ep-tile-icon"></div>SCORM</div></div></div>
-              </div>
-            </div>
-          </div>
-
           <!-- ════ STATE E: Streaming Generation ════ -->
           <div class="state state-e" id="stateE">
 
@@ -1232,12 +1152,10 @@
       a: 'Empty course — two paths: AI generate or manual build',
       b: 'Describe course + attach files + pick style → generate',
       c: 'Review generated outline — reorder, rename, add/remove lessons',
-      d: 'Accepted — pin sidebar via 📌 inside lesson dropdown',
       e: 'Streaming generation — elements appear one by one in canvas',
     };
 
     let currentState = 's1';
-    let sidebarOpen = { d: true };
 
     // ── Streaming state data ──
     const STREAM_LESSONS = [
@@ -1375,58 +1293,12 @@
         if (mobiOpen) { toggleMobi(); }
         // Start the streaming demo
         startStreamingDemo();
-      } else if (id === 'd') {
-        toolbarTitle.style.display = 'none';
-        dropdownWrap.style.display = 'block';
-        previewBtn.style.display = 'inline-block';
-        toolbar.style.opacity = '1';
-        toolbar.style.pointerEvents = 'auto';
-        courseTitle.textContent = 'Forklift Safety Training';
       }
-
-      // Reset sidebars (guard for missing elements)
-      sidebarOpen.d = true;
-      var lessonsSidebar = document.getElementById('lessonsSidebar');
-      if (lessonsSidebar) lessonsSidebar.classList.remove('collapsed');
-      updatePinBtnState();
 
       // Close menus
       document.getElementById('lessonDropdownMenu').classList.remove('open');
       var addMenu = document.getElementById('addMenu');
       if (addMenu) addMenu.classList.remove('open');
-    }
-
-    function closeSidebar(which) {
-      sidebarOpen[which] = false;
-      if (which === 'd') {
-        var el = document.getElementById('lessonsSidebar');
-        if (el) el.classList.add('collapsed');
-      }
-      updatePinBtnState();
-    }
-
-    function toggleSidebarFromDropdown(e) {
-      e.stopPropagation();
-      if (currentState === 'd') {
-        sidebarOpen.d = !sidebarOpen.d;
-        var el = document.getElementById('lessonsSidebar');
-        if (el) el.classList.toggle('collapsed', !sidebarOpen.d);
-      }
-      updatePinBtnState();
-      document.getElementById('lessonDropdownMenu').classList.remove('open');
-    }
-
-    function updatePinBtnState() {
-      const btn = document.getElementById('lddPinBtn');
-      if (!btn) return;
-      const pinned = currentState === 'd' ? sidebarOpen.d : false;
-      if (pinned) {
-        btn.classList.add('pinned');
-        btn.innerHTML = '📌 Unpin sidebar';
-      } else {
-        btn.classList.remove('pinned');
-        btn.innerHTML = '📌 Pin as sidebar';
-      }
     }
 
     function toggleLessonDropdown() {
@@ -1692,14 +1564,13 @@
       document.getElementById('subtitleText').textContent = 'Generation Complete!';
       document.getElementById('subtitleStopBtn').style.display = 'none';
 
-      // After 2.5s fade out, then revert and auto-transition to editor
+      // After 2.5s fade out, then revert subtitle
       subtitleTimeout = setTimeout(function() {
         subtitleEl.style.opacity = '0';
         subtitleFadeTimeout = setTimeout(function() {
           document.getElementById('subtitleText').textContent = 'Unsaved · Draft';
           subtitleEl.classList.remove('complete');
           subtitleEl.style.opacity = '';
-          switchState('d');
         }, 500);
       }, 2500);
 
